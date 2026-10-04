@@ -1,0 +1,526 @@
+/* ==========================================================================
+   NosooSuper — Lógica del catálogo y del pedido por WhatsApp
+   Depende de js/products.js (TIENDA, CATEGORIAS, PRODUCTOS)
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------------
+     Utilidades
+     ---------------------------------------------------------------------- */
+  const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+  const money = (n) => TIENDA.moneda + Math.round(n).toLocaleString('es-MX');
+
+  const esc = (str) => String(str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  /** Normaliza texto para buscar sin acentos ni mayúsculas. */
+  const norm = (str) => String(str).toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  const iconoDe = (p) => p.icono || (CATEGORIAS[p.cat] && CATEGORIAS[p.cat].icono) || 'i-bag';
+  const porId = (id) => PRODUCTOS.find((p) => p.id === id);
+
+  /* localStorage puede fallar (modo privado, cookies bloqueadas): nunca romper la página */
+  const store = {
+    get(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* sin persistencia */ }
+    }
+  };
+
+  /* ------------------------------------------------------------------------
+     Estado
+     ---------------------------------------------------------------------- */
+  const KEY_CART = 'esquinita.pedido';
+  const KEY_DATOS = 'esquinita.datos';
+
+  let carrito = store.get(KEY_CART, {});          // { idProducto: cantidad }
+  let categoria = 'todos';
+  let busqueda = '';
+  let ultimoFoco = null;
+
+  /* Limpia ids que ya no existen en el catálogo */
+  Object.keys(carrito).forEach((id) => {
+    if (!porId(id) || !(carrito[id] > 0)) delete carrito[id];
+  });
+
+  const guardarCarrito = () => store.set(KEY_CART, carrito);
+
+  /* ------------------------------------------------------------------------
+     Referencias del DOM
+     ---------------------------------------------------------------------- */
+  const productGrid = $('#productGrid');
+  const promoGrid = $('#promoGrid');
+  const resultCount = $('#resultCount');
+  const filtros = $('#filtros');
+  const buscador = $('#buscador');
+
+  const cart = $('#cart');
+  const cartBody = $('#cartBody');
+  const cartFoot = $('#cartFoot');
+  const cartCount = $('#cartCount');
+  const overlay = $('#overlay');
+
+  const toast = $('#toast');
+  const toastText = $('#toastText');
+  let toastTimer = null;
+
+  /* ------------------------------------------------------------------------
+     Totales
+     ---------------------------------------------------------------------- */
+  function lineas() {
+    return Object.keys(carrito).map((id) => {
+      const p = porId(id);
+      return { producto: p, cantidad: carrito[id], importe: p.precio * carrito[id] };
+    });
+  }
+
+  function totales() {
+    const items = lineas();
+    const piezas = items.reduce((acc, l) => acc + l.cantidad, 0);
+    const subtotal = items.reduce((acc, l) => acc + l.importe, 0);
+    const gratis = subtotal >= TIENDA.envio.gratisDesde;
+    const envio = piezas === 0 || gratis ? 0 : TIENDA.envio.costo;
+    return { items, piezas, subtotal, envio, gratis, total: subtotal + envio };
+  }
+
+  /* ------------------------------------------------------------------------
+     Avisos
+     ---------------------------------------------------------------------- */
+  function avisar(mensaje) {
+    toastText.textContent = mensaje;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2600);
+  }
+
+  /* ------------------------------------------------------------------------
+     Ofertas de la semana (productos con precio "antes")
+     ---------------------------------------------------------------------- */
+  function pintarPromos() {
+    const promos = PRODUCTOS.filter((p) => p.antes && p.antes > p.precio).slice(0, 4);
+
+    if (!promos.length) {
+      promoGrid.closest('section').hidden = true;
+      return;
+    }
+
+    promoGrid.innerHTML = promos.map((p) => {
+      const pct = Math.round((1 - p.precio / p.antes) * 100);
+      return `
+        <article class="promo-card">
+          <span class="promo-card__tag">-${pct}%</span>
+          <span class="promo-card__icon" aria-hidden="true">
+            <svg class="icon icon--lg"><use href="#${iconoDe(p)}"></use></svg>
+          </span>
+          <div>
+            <h3 class="promo-card__name">${esc(p.nombre)}</h3>
+            <span class="promo-card__unit">${esc(p.unidad)}</span>
+          </div>
+          <p class="promo-card__prices">
+            <span class="promo-card__now">${money(p.precio)}</span>
+            <span class="promo-card__was">${money(p.antes)}</span>
+          </p>
+          <button class="btn btn--accent btn--sm" type="button" data-add="${p.id}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+            Agregar al pedido
+          </button>
+        </article>`;
+    }).join('');
+  }
+
+  /* ------------------------------------------------------------------------
+     Catálogo
+     ---------------------------------------------------------------------- */
+  function filtrados() {
+    const q = norm(busqueda.trim());
+    return PRODUCTOS.filter((p) => {
+      if (categoria !== 'todos' && p.cat !== categoria) return false;
+      if (!q) return true;
+      const heno = norm(p.nombre + ' ' + p.unidad + ' ' + (CATEGORIAS[p.cat] ? CATEGORIAS[p.cat].nombre : ''));
+      return q.split(/\s+/).every((t) => heno.includes(t));
+    });
+  }
+
+  function pintarCatalogo() {
+    const lista = filtrados();
+
+    if (!lista.length) {
+      productGrid.innerHTML = `
+        <div class="empty-state">
+          <svg class="icon icon--lg" aria-hidden="true"><use href="#i-search"></use></svg>
+          <p><strong>No encontramos ese producto en la página.</strong></p>
+          <p>Pregúntanos por WhatsApp: seguro lo tenemos en el mostrador o te lo conseguimos.</p>
+          <a class="btn btn--primary btn--sm" href="#" data-wa-direct>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+            Preguntar por WhatsApp
+          </a>
+        </div>`;
+    } else {
+      productGrid.innerHTML = lista.map((p) => {
+        const enCarrito = carrito[p.id] || 0;
+        const oferta = p.antes && p.antes > p.precio;
+        return `
+          <article class="product">
+            <div class="product__thumb">
+              ${oferta ? '<span class="product__badge">Oferta</span>' : ''}
+              <svg class="icon icon--lg" aria-hidden="true"><use href="#${iconoDe(p)}"></use></svg>
+            </div>
+            <div>
+              <h3 class="product__name">${esc(p.nombre)}</h3>
+              <span class="product__unit">${esc(p.unidad)}${enCarrito ? ' · ' + enCarrito + ' en tu pedido' : ''}</span>
+            </div>
+            <div class="product__foot">
+              <span class="product__price">
+                ${money(p.precio)}
+                ${oferta ? `<span class="product__price-was">${money(p.antes)}</span>` : ''}
+              </span>
+              <button class="product__add" type="button" data-add="${p.id}"
+                      aria-label="Agregar ${esc(p.nombre)} al pedido">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+              </button>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    const n = lista.length;
+    resultCount.textContent = n === PRODUCTOS.length
+      ? `${n} productos disponibles`
+      : `${n} ${n === 1 ? 'producto' : 'productos'} de ${PRODUCTOS.length}`;
+  }
+
+  /* ------------------------------------------------------------------------
+     Carrito: estructura fija (para no borrar lo que el cliente escribe)
+     ---------------------------------------------------------------------- */
+  const datosGuardados = store.get(KEY_DATOS, {});
+
+  cartBody.innerHTML = `
+    <div class="cart__empty" id="cartEmpty">
+      <svg class="icon icon--lg" aria-hidden="true"><use href="#i-cart"></use></svg>
+      <p><strong>Tu pedido está vacío</strong></p>
+      <p>Agrega productos del catálogo y aquí los vas viendo.</p>
+      <a class="btn btn--primary btn--sm" href="#catalogo" data-close-cart>Ir al catálogo</a>
+    </div>
+
+    <div id="cartFilled" hidden>
+      <ul class="cart-lines" id="cartLines"></ul>
+
+      <form class="cart__form" id="cartForm" novalidate>
+        <h3 class="cart__form-title">Datos para la entrega</h3>
+
+        <div class="field">
+          <label class="field__label" for="fNombre">Tu nombre</label>
+          <input class="input" type="text" id="fNombre" name="nombre" autocomplete="name"
+                 placeholder="Ej. María González" value="${esc(datosGuardados.nombre || '')}">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="fDireccion">Calle y número</label>
+          <input class="input" type="text" id="fDireccion" name="direccion" autocomplete="street-address"
+                 placeholder="Ej. Morelos 123, int. 4" value="${esc(datosGuardados.direccion || '')}">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="fReferencia">Referencia <span class="field__hint">(opcional)</span></label>
+          <textarea class="textarea" id="fReferencia" name="referencia"
+                    placeholder="Ej. portón verde, frente a la papelería">${esc(datosGuardados.referencia || '')}</textarea>
+        </div>
+
+        <div class="field">
+          <span class="field__label" id="pagoLabel">¿Cómo vas a pagar?</span>
+          <div class="radio-row" role="radiogroup" aria-labelledby="pagoLabel">
+            <label class="radio-card">
+              <input type="radio" name="pago" value="Efectivo" checked> Efectivo
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="pago" value="Transferencia"> Transferencia
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>`;
+
+  const cartEmpty = $('#cartEmpty');
+  const cartFilled = $('#cartFilled');
+  const cartLines = $('#cartLines');
+  const cartForm = $('#cartForm');
+
+  if (datosGuardados.pago) {
+    const r = $(`input[name="pago"][value="${datosGuardados.pago}"]`, cartForm);
+    if (r) r.checked = true;
+  }
+
+  function pintarCarrito() {
+    const t = totales();
+
+    cartCount.textContent = t.piezas;
+    cartCount.classList.toggle('is-visible', t.piezas > 0);
+    $('#cartOpen').setAttribute('aria-label',
+      t.piezas ? `Abrir mi pedido, ${t.piezas} ${t.piezas === 1 ? 'producto' : 'productos'}` : 'Abrir mi pedido');
+
+    const vacio = t.piezas === 0;
+    cartEmpty.hidden = !vacio;
+    cartFilled.hidden = vacio;
+    cartFoot.hidden = vacio;
+
+    if (vacio) { cartLines.innerHTML = ''; return; }
+
+    cartLines.innerHTML = t.items.map((l) => `
+      <li class="cart-line">
+        <span class="cart-line__icon" aria-hidden="true">
+          <svg class="icon icon--sm"><use href="#${iconoDe(l.producto)}"></use></svg>
+        </span>
+        <div>
+          <span class="cart-line__name">${esc(l.producto.nombre)}</span>
+          <span class="cart-line__price">${esc(l.producto.unidad)} · ${money(l.producto.precio)} c/u</span>
+        </div>
+        <div class="cart-line__side">
+          <span class="cart-line__total">${money(l.importe)}</span>
+          <span class="stepper">
+            <button class="stepper__btn" type="button" data-step="-1" data-id="${l.producto.id}"
+                    aria-label="Quitar uno de ${esc(l.producto.nombre)}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#${l.cantidad === 1 ? 'i-trash' : 'i-minus'}"></use></svg>
+            </button>
+            <span class="stepper__value" aria-label="Cantidad">${l.cantidad}</span>
+            <button class="stepper__btn" type="button" data-step="1" data-id="${l.producto.id}"
+                    aria-label="Agregar uno más de ${esc(l.producto.nombre)}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
+            </button>
+          </span>
+        </div>
+      </li>`).join('');
+
+    $('#sumItems').textContent = money(t.subtotal);
+    $('#sumShip').innerHTML = t.gratis
+      ? '<span class="sum-row__free">Gratis</span>'
+      : money(t.envio);
+    $('#sumTotal').textContent = money(t.total);
+  }
+
+  /* ------------------------------------------------------------------------
+     Acciones del carrito
+     ---------------------------------------------------------------------- */
+  function agregar(id, aviso) {
+    const p = porId(id);
+    if (!p) return;
+    carrito[id] = (carrito[id] || 0) + 1;
+    guardarCarrito();
+    pintarCarrito();
+    pintarCatalogo();
+    if (aviso !== false) avisar(`${p.nombre} agregado a tu pedido`);
+  }
+
+  function cambiar(id, delta) {
+    if (!carrito[id]) return;
+    carrito[id] += delta;
+    if (carrito[id] <= 0) delete carrito[id];
+    guardarCarrito();
+    pintarCarrito();
+    pintarCatalogo();
+  }
+
+  /* ------------------------------------------------------------------------
+     Panel del carrito
+     ---------------------------------------------------------------------- */
+  function abrirCarrito() {
+    ultimoFoco = document.activeElement;
+    overlay.hidden = false;
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+    cart.classList.add('is-open');
+    cart.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-locked');
+    $('#cartClose').focus();
+  }
+
+  function cerrarCarrito() {
+    overlay.classList.remove('is-open');
+    cart.classList.remove('is-open');
+    cart.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-locked');
+    setTimeout(() => { overlay.hidden = true; }, 320);
+    if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
+  }
+
+  const carritoAbierto = () => cart.classList.contains('is-open');
+
+  /* ------------------------------------------------------------------------
+     Mensaje de WhatsApp
+     ---------------------------------------------------------------------- */
+  function enlaceWA(texto) {
+    return 'https://wa.me/' + TIENDA.whatsapp + '?text=' + encodeURIComponent(texto);
+  }
+
+  function datosDelForm() {
+    const valor = (name) => {
+      const el = cartForm.elements[name];
+      return el ? el.value.trim() : '';
+    };
+    const pago = $('input[name="pago"]:checked', cartForm);
+    return {
+      nombre: valor('nombre'),
+      direccion: valor('direccion'),
+      referencia: valor('referencia'),
+      pago: pago ? pago.value : 'Efectivo'
+    };
+  }
+
+  function mensajePedido() {
+    const t = totales();
+    const d = datosDelForm();
+    const L = [];
+
+    L.push('*Pedido — ' + TIENDA.nombre + '*');
+    L.push('');
+
+    t.items.forEach((l, i) => {
+      L.push(`${i + 1}. ${l.producto.nombre} (${l.producto.unidad}) x${l.cantidad} — ${money(l.importe)}`);
+    });
+
+    L.push('');
+    L.push('Productos: ' + money(t.subtotal));
+    L.push('Envío: ' + (t.gratis ? 'gratis' : money(t.envio)));
+    L.push('*Total: ' + money(t.total) + '*');
+    L.push('');
+    L.push('*Datos de entrega*');
+    L.push('Nombre: ' + d.nombre);
+    L.push('Dirección: ' + d.direccion);
+    if (d.referencia) L.push('Referencia: ' + d.referencia);
+    L.push('Pago: ' + d.pago);
+
+    return L.join('\n');
+  }
+
+  function enviarPedido() {
+    const t = totales();
+    if (!t.piezas) { avisar('Agrega productos antes de enviar tu pedido'); return; }
+
+    const d = datosDelForm();
+    if (!d.nombre) {
+      avisar('Escribe tu nombre para poder entregarte');
+      $('#fNombre').focus();
+      return;
+    }
+    if (!d.direccion) {
+      avisar('Necesitamos tu calle y número');
+      $('#fDireccion').focus();
+      return;
+    }
+
+    store.set(KEY_DATOS, d);
+    window.open(enlaceWA(mensajePedido()), '_blank', 'noopener');
+  }
+
+  /* ------------------------------------------------------------------------
+     Eventos
+     ---------------------------------------------------------------------- */
+  /* Un solo listener para todo lo que se genera dinámicamente */
+  document.addEventListener('click', (ev) => {
+    /* Enlaces directos de WhatsApp: con pedido lo mandan, si no, el saludo */
+    const wa = ev.target.closest('[data-wa-direct]');
+    if (wa) {
+      ev.preventDefault();
+      const t = totales();
+      const d = t.piezas ? datosDelForm() : null;
+      const texto = (t.piezas && d && d.nombre && d.direccion) ? mensajePedido() : TIENDA.saludo;
+      window.open(enlaceWA(texto), '_blank', 'noopener');
+      return;
+    }
+
+    /* Agregar producto */
+    const add = ev.target.closest('[data-add]');
+    if (add) { agregar(add.dataset.add); return; }
+
+    /* Cambiar cantidad */
+    const step = ev.target.closest('[data-step]');
+    if (step) { cambiar(step.dataset.id, Number(step.dataset.step)); return; }
+
+    /* Cerrar carrito desde dentro */
+    if (ev.target.closest('[data-close-cart]')) { cerrarCarrito(); return; }
+
+    /* Categoría del hero → filtra el catálogo */
+    const cat = ev.target.closest('.cat-card[data-cat]');
+    if (cat) { aplicarCategoria(cat.dataset.cat); return; }
+
+    /* Chips de filtro */
+    const chip = ev.target.closest('.filter-chip[data-cat]');
+    if (chip) { aplicarCategoria(chip.dataset.cat); return; }
+  });
+
+  function aplicarCategoria(valor) {
+    categoria = valor;
+    $$('.filter-chip', filtros).forEach((c) => {
+      c.setAttribute('aria-pressed', String(c.dataset.cat === valor));
+    });
+    pintarCatalogo();
+  }
+
+  /* Buscador con pequeño retraso para no repintar en cada tecla */
+  let tBusqueda = null;
+  buscador.addEventListener('input', () => {
+    clearTimeout(tBusqueda);
+    tBusqueda = setTimeout(() => { busqueda = buscador.value; pintarCatalogo(); }, 160);
+  });
+
+  /* Carrito */
+  $('#cartOpen').addEventListener('click', abrirCarrito);
+  $('#cartClose').addEventListener('click', cerrarCarrito);
+  overlay.addEventListener('click', cerrarCarrito);
+  $('#sendOrder').addEventListener('click', enviarPedido);
+  cartForm.addEventListener('submit', (ev) => { ev.preventDefault(); enviarPedido(); });
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'Escape') return;
+    if (carritoAbierto()) cerrarCarrito();
+    else if (menu.classList.contains('is-open')) cerrarMenu();
+  });
+
+  /* El foco no debe salirse del panel mientras está abierto */
+  cart.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'Tab' || !carritoAbierto()) return;
+    const focusables = $$('button, [href], input, textarea, select', cart)
+      .filter((el) => !el.disabled && el.offsetParent !== null);
+    if (!focusables.length) return;
+    const primero = focusables[0];
+    const ultimo = focusables[focusables.length - 1];
+    if (ev.shiftKey && document.activeElement === primero) { ev.preventDefault(); ultimo.focus(); }
+    else if (!ev.shiftKey && document.activeElement === ultimo) { ev.preventDefault(); primero.focus(); }
+  });
+
+  /* Menú móvil */
+  const menu = $('#mobileNav');
+  const menuBtn = $('#menuToggle');
+
+  function cerrarMenu() {
+    menu.classList.remove('is-open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.setAttribute('aria-label', 'Abrir menú');
+    menuBtn.querySelector('use').setAttribute('href', '#i-menu');
+  }
+
+  menuBtn.addEventListener('click', () => {
+    const abierto = menu.classList.toggle('is-open');
+    menuBtn.setAttribute('aria-expanded', String(abierto));
+    menuBtn.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+    menuBtn.querySelector('use').setAttribute('href', abierto ? '#i-x' : '#i-menu');
+  });
+
+  menu.addEventListener('click', (ev) => { if (ev.target.closest('a')) cerrarMenu(); });
+
+  /* ------------------------------------------------------------------------
+     Arranque
+     ---------------------------------------------------------------------- */
+  $('#year').textContent = new Date().getFullYear();
+  pintarPromos();
+  pintarCatalogo();
+  pintarCarrito();
+})();

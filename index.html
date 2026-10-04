@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NosooSuper — Abarrotes a domicilio | Tu tienda de la esquina</title>
+<meta name="description" content="La tiendita de la esquina de siempre, ahora con pedido por WhatsApp. Despensa, lácteos, pan, bebidas y limpieza con entrega a domicilio en menos de 30 minutos.">
+<meta name="theme-color" content="#16A34A">
+
+<!-- Open Graph / redes sociales -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="NosooSuper — Abarrotes a domicilio">
+<meta property="og:description" content="Pide tu despensa por WhatsApp y te la llevamos a tu casa en menos de 30 minutos.">
+<meta property="og:image" content="assets/logo.svg">
+
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
+<!-- Tipografía: Rubik (títulos) + Nunito Sans (texto) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Rubik:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css?v=1">
+
+<!-- Datos estructurados para Google (negocio local) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GroceryStore",
+  "name": "NosooSuper",
+  "description": "Tienda de abarrotes de barrio con entrega a domicilio y pedidos por WhatsApp.",
+  "telephone": "+53 5204 6805",
+  "priceRange": "$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle Morelos 123, esq. Av. Juárez",
+    "addressLocality": "Colonia Centro",
+    "addressRegion": "CDMX",
+    "postalCode": "00000",
+    "addressCountry": "MX"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "07:00",
+    "closes": "22:00"
+  }]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#catalogo">Saltar al catálogo</a>
+
+<!-- ==========================================================
+     SPRITE DE ICONOS (SVG, sin emojis)
+     ========================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="stroke-defaults"></g>
+  </defs>
+
+  <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 9l2-5h12l2 5"/><path d="M4 9h16v11H4z"/><path d="M9.5 20v-5.5h5V20"/>
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.2 2"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21.5s7-5.8 7-11a7 7 0 1 0-14 0c0 5.2 7 11 7 11z"/><circle cx="12" cy="10.2" r="2.4"/>
+  </symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.6 3h3l1.5 4-2 1.4a12.5 12.5 0 0 0 6.5 6.5l1.4-2 4 1.5v3a2 2 0 0 1-2.1 2A16.2 16.2 0 0 1 4.6 5.1 2 2 0 0 1 6.6 3z"/>
+  </symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 6.5h10.5V16H3z"/><path d="M13.5 10h4l3 3v3h-7z"/><circle cx="7" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12.5l4.5 4.5L19 7"/>
+  </symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M8.2 12.4l2.6 2.6 4.9-5.3"/>
+  </symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2.5 4h2.2l2.5 10.4a2 2 0 0 0 1.95 1.6h8.1a2 2 0 0 0 1.95-1.55L21 7.6H5.6"/><circle cx="10" cy="20" r="1.5"/><circle cx="17.5" cy="20" r="1.5"/>
+  </symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+    <path d="M4 7h16M4 12h16M4 17h16"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+    <path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>
+  </symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10.8" cy="10.8" r="6.8"/><path d="M16 16l4.5 4.5"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path d="M12 5.5v13M5.5 12h13"/>
+  </symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path d="M5.5 12h13"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 7h16"/><path d="M9.5 7V4.8h5V7"/><path d="M6 7l1 12.2h10L18 7"/><path d="M10.4 11v5M13.6 11v5"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>
+  </symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M12.04 2C6.6 2 2.17 6.43 2.17 11.87c0 1.74.46 3.44 1.32 4.94L2 22.3l5.63-1.47a9.9 9.9 0 0 0 4.41 1.05c5.44 0 9.87-4.43 9.87-9.87C21.91 6.43 17.48 2 12.04 2zm5.73 14.02c-.24.67-1.4 1.29-1.92 1.34-.53.05-1.02.24-3.44-.71-2.91-1.16-4.76-4.15-4.9-4.35-.14-.19-1.16-1.54-1.16-2.94 0-1.39.73-2.07.99-2.36.26-.29.56-.36.75-.36h.55c.18 0 .42-.07.65.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.1.19-.15.3-.29.47-.14.17-.3.37-.44.5-.14.14-.3.3-.13.58.17.29.75 1.24 1.61 2.01 1.11.98 2.04 1.29 2.33 1.43.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.14.26.1 1.67.79 1.96.93.29.14.48.22.55.34.07.12.07.69-.17 1.36z"/>
+  </symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path d="M13.5 21.9v-7.9h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5h1.65V4.6c-.29-.04-1.3-.12-2.47-.12-2.44 0-4.1 1.49-4.1 4.22v2.19H7.4V14h2.73v7.9z"/>
+  </symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M16.9 7.1h.01"/>
+  </symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5.6 7.8h12.8l-1.1 12.4H6.7z"/><path d="M9 7.8V6a3 3 0 0 1 6 0v1.8"/>
+  </symbol>
+  <symbol id="i-milk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.2 2.8h5.6"/><path d="M10 2.8v3.4L8.2 9.3V21h7.6V9.3L14 6.2V2.8"/><path d="M8.2 13.4h7.6"/>
+  </symbol>
+  <symbol id="i-bottle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.2 2.6h3.6v2.6l1.7 2.8V21H8.5V8l1.7-2.8z"/><path d="M8.5 12.4h7"/>
+  </symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M9.6 9.6h.01M14.6 10.8h.01M10.8 15h.01M14.8 14.6h.01"/>
+  </symbol>
+  <symbol id="i-spray" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.6 9.4h6V21h-6z"/><path d="M10.2 9.4V6h3v3.4"/><path d="M13.2 6.8h2.6"/><path d="M18 4.4h.01M19.6 6h.01M18 7.8h.01"/>
+  </symbol>
+  <symbol id="i-soap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.8 11.2h10.4V21H6.8z"/><path d="M9.8 11.2V9h4.4v2.2"/><path d="M9.4 6.4h.01M12 5h.01M14.6 6.4h.01"/>
+  </symbol>
+  <symbol id="i-tortilla" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.6"/><path d="M8.6 10h.01M12 8.4h.01M15.2 11h.01M10 14.2h.01M14.2 14.8h.01"/>
+  </symbol>
+  <symbol id="i-mobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6.8" y="2.4" width="10.4" height="19.2" rx="2.6"/><path d="M10.6 18.6h2.8"/>
+  </symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 3h12v18l-3-1.6-3 1.6-3-1.6L6 21z"/><path d="M9.2 8.2h5.6M9.2 12h5.6"/>
+  </symbol>
+  <symbol id="i-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.8s6.2 6.4 6.2 10.2a6.2 6.2 0 0 1-12.4 0C5.8 9.2 12 2.8 12 2.8z"/>
+  </symbol>
+  <symbol id="i-snowflake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.6v18.8M4 7.2l16 9.6M20 7.2L4 16.8"/><path d="M9.4 4.6L12 6.4l2.6-1.8M9.4 19.4L12 17.6l2.6 1.8"/>
+  </symbol>
+  <symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.8l8.4 4.6v9.2L12 21.2 3.6 16.6V7.4z"/><path d="M3.6 7.4l8.4 4.6 8.4-4.6M12 12v9.2"/>
+  </symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.2 3.2h7.6l10 10-7.6 7.6-10-10z"/><path d="M7.2 7.2h.01"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11.2v5.4M12 7.6h.01"/>
+  </symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.4 3.4l1.7 4.3 4.3 1.7-4.3 1.7-1.7 4.3-1.7-4.3L4.4 9.4l4.3-1.7z"/><path d="M17.8 15.2l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z"/>
+  </symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 20.6l-7.1-7.2a4.7 4.7 0 0 1 6.6-6.6l.5.5.5-.5a4.7 4.7 0 0 1 6.6 6.6z"/>
+  </symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 8.4h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 10V6.6a2 2 0 0 1 2-2h10.2"/><path d="M16.2 14.2h1.6"/>
+  </symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.6 12h14"/><path d="M13.4 6.8l5.2 5.2-5.2 5.2"/>
+  </symbol>
+
+  <!-- Iconos por producto -->
+  <symbol id="i-can" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 7.4v11.2c0 1.3 2.2 2.4 5 2.4s5-1.1 5-2.4V7.4"/><ellipse cx="12" cy="7.4" rx="5" ry="2.4"/><path d="M7 11.6h10"/>
+  </symbol>
+  <symbol id="i-oil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.4 7.6h5.2l1.9 3.2V21H7.5V10.8z"/><path d="M10.6 7.6V3.4h2.8v4.2"/><path d="M7.5 14.4h8"/>
+  </symbol>
+  <symbol id="i-salt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.6 9.4h6.8V21H8.6z"/><path d="M8.6 9.4c0-2.6 1.3-4.6 3.4-4.6s3.4 2 3.4 4.6"/><path d="M11 4.2h.01M13.4 3.4h.01"/>
+  </symbol>
+  <symbol id="i-wheat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21V8.6"/><path d="M12 8.6c0-2 1.2-3.4 2.8-4-.3 2-1.2 3.4-2.8 4zM12 8.6c0-2-1.2-3.4-2.8-4 .3 2 1.2 3.4 2.8 4z"/>
+    <path d="M12 13.4c0-2 1.2-3.4 2.8-4-.3 2-1.2 3.4-2.8 4zM12 13.4c0-2-1.2-3.4-2.8-4 .3 2 1.2 3.4 2.8 4z"/>
+    <path d="M12 18.2c0-2 1.2-3.4 2.8-4-.3 2-1.2 3.4-2.8 4zM12 18.2c0-2-1.2-3.4-2.8-4 .3 2 1.2 3.4 2.8 4z"/>
+  </symbol>
+  <symbol id="i-egg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3.2c3.5 0 6.1 4.5 6.1 8.6 0 4-2.6 7-6.1 7s-6.1-3-6.1-7c0-4.1 2.6-8.6 6.1-8.6z"/>
+  </symbol>
+  <symbol id="i-cheese" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.4 11.4l9.2-5.2c4 0 7.4 2.4 8 5.2v6.2H3.4z"/><path d="M3.4 11.4h17.2"/><path d="M8 14.6h.01M13 15h.01M17 14.2h.01"/>
+  </symbol>
+  <symbol id="i-butter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.6 10.6l4-3.2h12.8v7.2l-4 3.2H3.6z"/><path d="M3.6 10.6h12.8v7.2M16.4 10.6l4-3.2"/>
+  </symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.8 8.4h12.4v5.2a5.2 5.2 0 0 1-5.2 5.2H9a5.2 5.2 0 0 1-5.2-5.2z"/><path d="M16.2 9.6h2.2a2.6 2.6 0 0 1 0 5.2h-2.2"/><path d="M4.6 21.4h11"/>
+  </symbol>
+  <symbol id="i-juice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 8.2h10l-1.3 12.2a1.4 1.4 0 0 1-1.4 1.2H9.7a1.4 1.4 0 0 1-1.4-1.2z"/><path d="M7.4 12h9.2"/><path d="M13.6 2.6l1.6 5.6"/>
+  </symbol>
+  <symbol id="i-chips" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7.2 6.2h9.6l.9 14.2a1 1 0 0 1-1 1.1H7.3a1 1 0 0 1-1-1.1z"/>
+    <path d="M7.2 6.2l1.6-1.8 1.6 1.8 1.6-1.8 1.6 1.8 1.6-1.8 1.6 1.8"/><path d="M9.4 11.4h5.2"/>
+  </symbol>
+  <symbol id="i-chocolate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.4 3.8h11.2v16.4H6.4z"/><path d="M6.4 9.2h11.2M6.4 14.6h11.2M12 3.8v16.4"/>
+  </symbol>
+  <symbol id="i-lollipop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8.4" r="5.2"/><path d="M12 13.6V21.4"/><path d="M12 8.4a2.2 2.2 0 1 0-2.2-2.2"/>
+  </symbol>
+  <symbol id="i-roll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4.4" y="4.4" width="15.2" height="15.2" rx="7.6"/><circle cx="12" cy="12" r="2.4"/><path d="M12 4.4v3.2M12 16.4v3.2"/>
+  </symbol>
+  <symbol id="i-detergent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5.4 8.4h13.2V21H5.4z"/><path d="M5.4 8.4l2.2-4.6h8.8l2.2 4.6"/><path d="M9.2 13h.01M12.4 15h.01M15 12.4h.01"/>
+  </symbol>
+  <symbol id="i-bleach" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.6 3.4h4.2v2.6l2.4 2.8V21H7.2V8.8l2.4-2.8z"/><path d="M16.2 10.6h2.4v4h-2.4"/>
+  </symbol>
+  <symbol id="i-toothpaste" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.4 8.6h7.2V21H8.4z"/><path d="M10.4 8.6V6.2h3.2v2.4"/><path d="M11.1 3.2h1.8v3h-1.8z"/>
+  </symbol>
+  <symbol id="i-bread" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.6 12.6c0-3 3.8-5.3 8.4-5.3s8.4 2.3 8.4 5.3c0 1.2-1 2.2-2.2 2.2H5.8c-1.2 0-2.2-1-2.2-2.2z"/>
+    <path d="M5.8 14.8v2.4a2.2 2.2 0 0 0 2.2 2.2h8a2.2 2.2 0 0 0 2.2-2.2v-2.4"/>
+  </symbol>
+  <symbol id="i-donut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="2.8"/><path d="M8 7.4l1.6 1.8M15.4 8.4L17 6.8M8.2 16.6L6.6 18M16.4 15.8l1.6 1.4"/>
+  </symbol>
+  <symbol id="i-jug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.4 2.8h5.2v2.4l2.6 3.2V21H6.8V8.4l2.6-3.2z"/><path d="M17.2 11.2h2.4v4.4h-2.4"/><path d="M6.8 13.2h10.4"/>
+  </symbol>
+  <symbol id="i-soda" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.2 2.6h3.6v2.8l1.8 3V21H8.4V8.4l1.8-3z"/><path d="M8.4 12.6h7.2"/><path d="M10.6 15.6h.01M13.4 16.8h.01M11.8 18.6h.01"/>
+  </symbol>
+</svg>
+
+<!-- ==========================================================
+     BARRA SUPERIOR
+     ========================================================== -->
+<div class="topbar">
+  <div class="container topbar__inner">
+    <span class="topbar__item">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"></use></svg>
+      Abierto todos los días de 7:00 a 22:00
+    </span>
+    <span class="topbar__item">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-truck"></use></svg>
+      Envío gratis en pedidos desde $150
+    </span>
+    <span class="topbar__item">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"></use></svg>
+      <a href="tel:+5352046805">+53 5204 6805</a>
+    </span>
+  </div>
+</div>
+
+<!-- ==========================================================
+     HEADER
+     ========================================================== -->
+<header class="header">
+  <div class="container header__inner">
+    <a class="brand" href="#inicio">
+      <span class="brand__mark" aria-hidden="true">
+        <svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg>
+      </span>
+      <span>
+        <span class="brand__name">NosooSuper</span>
+        <span class="brand__tag">La Loma</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="nav__link" href="#categorias">Categorías</a>
+      <a class="nav__link" href="#promos">Ofertas</a>
+      <a class="nav__link" href="#catalogo">Catálogo</a>
+      <a class="nav__link" href="#servicios">Servicios</a>
+      <a class="nav__link" href="#como-pedir">Cómo pedir</a>
+    </nav>
+
+    <div class="header__actions">
+      <button class="btn btn--ghost btn--icon cart-btn" type="button" id="cartOpen" aria-label="Abrir mi pedido" aria-haspopup="dialog">
+        <svg class="icon" aria-hidden="true"><use href="#i-cart"></use></svg>
+        <span class="cart-btn__count" id="cartCount" aria-hidden="true">0</span>
+      </button>
+      <button class="btn btn--ghost btn--icon menu-toggle" type="button" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
+      <a class="btn btn--primary header__cta" href="#catalogo" id="headerCta">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+        Hacer mi pedido
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="Navegación móvil">
+    <div class="container">
+      <a class="mobile-nav__link" href="#categorias"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-bag"></use></svg> Categorías</a>
+      <a class="mobile-nav__link" href="#promos"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-tag"></use></svg> Ofertas de la semana</a>
+      <a class="mobile-nav__link" href="#catalogo"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-search"></use></svg> Catálogo y precios</a>
+      <a class="mobile-nav__link" href="#servicios"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-receipt"></use></svg> Otros servicios</a>
+      <a class="mobile-nav__link" href="#como-pedir"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-truck"></use></svg> Cómo pedir</a>
+      <a class="mobile-nav__link" href="#contacto"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg> Dónde estamos</a>
+    </div>
+  </nav>
+</header>
+
+<main id="inicio">
+
+  <!-- ========================================================
+       HERO
+       ======================================================== -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <span class="eyebrow">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-sparkles"></use></svg>
+          Tu tienda de confianza
+        </span>
+        <h1 class="hero__title">Tus abarrotes, <strong>a la puerta de tu casa</strong></h1>
+        <p class="lead">
+          La tiendita de la esquina de siempre, ahora con pedidos por WhatsApp.
+          Elige lo que necesitas, nos mandas tu lista y te la llevamos en menos de 30 minutos.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#catalogo">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-cart"></use></svg>
+            Ver catálogo y precios
+          </a>
+          <a class="btn btn--ghost" href="#" data-wa-direct>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+            Pedir por WhatsApp
+          </a>
+        </div>
+
+        <ul class="trust">
+          <li class="trust__item">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-truck"></use></svg>
+            <span>
+              <span class="trust__label">Entrega en 30 min</span>
+              <span class="trust__meta">en un radio de 1.5 km</span>
+            </span>
+          </li>
+          <li class="trust__item">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-tag"></use></svg>
+            <span>
+              <span class="trust__label">Envío gratis</span>
+              <span class="trust__meta">desde $150 de compra</span>
+            </span>
+          </li>
+          <li class="trust__item">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"></use></svg>
+            <span>
+              <span class="trust__label">7:00 a 22:00</span>
+              <span class="trust__meta">los 7 días de la semana</span>
+            </span>
+          </li>
+          <li class="trust__item">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-wallet"></use></svg>
+            <span>
+              <span class="trust__label">Efectivo o transferencia</span>
+              <span class="trust__meta">pagas al recibir</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Vista previa del pedido: construida en CSS, sin fotos -->
+      <div class="hero__card">
+        <div class="hero__card-head">
+          <span class="hero__card-title">Pedido de ejemplo</span>
+          <span class="chip-live"><span class="chip-live__dot" aria-hidden="true"></span> Abierto ahora</span>
+        </div>
+        <ul class="mini-list">
+          <li class="mini-row">
+            <span class="mini-row__icon" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-tortilla"></use></svg></span>
+            <span class="mini-row__name">Tortillas de maíz · 1 kg</span>
+            <span class="mini-row__price">$24</span>
+          </li>
+          <li class="mini-row">
+            <span class="mini-row__icon" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-milk"></use></svg></span>
+            <span class="mini-row__name">Leche entera · 1 L</span>
+            <span class="mini-row__price">$26</span>
+          </li>
+          <li class="mini-row">
+            <span class="mini-row__icon" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-bag"></use></svg></span>
+            <span class="mini-row__name">Frijol bayo · 1 kg</span>
+            <span class="mini-row__price">$38</span>
+          </li>
+          <li class="mini-row">
+            <span class="mini-row__icon" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-bottle"></use></svg></span>
+            <span class="mini-row__name">Refresco de cola · 2 L</span>
+            <span class="mini-row__price">$35</span>
+          </li>
+        </ul>
+        <p class="hero__card-total">
+          <span>Total del ejemplo</span>
+          <strong>$123</strong>
+        </p>
+        <p class="hero__card-note">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+          Agrega $27 más y tu envío es gratis.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CATEGORÍAS
+       ======================================================== -->
+  <section class="section" id="categorias">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2>Todo lo básico, en un solo lugar</h2>
+        <p class="lead">Seis categorías con lo que se acaba en casa cada semana. Toca una para ver los precios.</p>
+      </div>
+
+      <div class="cat-grid">
+        <a class="cat-card" href="#catalogo" data-cat="despensa">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-bag"></use></svg></span>
+          <span class="cat-card__name">Despensa</span>
+        </a>
+        <a class="cat-card" href="#catalogo" data-cat="lacteos">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-milk"></use></svg></span>
+          <span class="cat-card__name">Lácteos y huevo</span>
+        </a>
+        <a class="cat-card" href="#catalogo" data-cat="pan">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-tortilla"></use></svg></span>
+          <span class="cat-card__name">Pan y tortillas</span>
+        </a>
+        <a class="cat-card" href="#catalogo" data-cat="bebidas">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-bottle"></use></svg></span>
+          <span class="cat-card__name">Bebidas</span>
+        </a>
+        <a class="cat-card" href="#catalogo" data-cat="botanas">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-cookie"></use></svg></span>
+          <span class="cat-card__name">Botanas y dulces</span>
+        </a>
+        <a class="cat-card" href="#catalogo" data-cat="limpieza">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-spray"></use></svg></span>
+          <span class="cat-card__name">Limpieza e higiene</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       OFERTAS
+       ======================================================== -->
+  <section class="section section--surface" id="promos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-tag"></use></svg>
+          Ofertas de la semana
+        </span>
+        <h2>Lo que más se lleva, más barato</h2>
+        <p class="lead">Precios válidos hasta el domingo o mientras haya existencia. Pregunta por el mayoreo.</p>
+      </div>
+
+      <div class="promo-grid" id="promoGrid">
+        <!-- Generado desde js/products.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CATÁLOGO
+       ======================================================== -->
+  <section class="section" id="catalogo">
+    <div class="container">
+      <div class="section-head">
+        <h2>Catálogo y precios</h2>
+        <p class="lead">Arma tu lista aquí mismo. Al terminar te mandamos todo en un mensaje de WhatsApp listo para enviar.</p>
+      </div>
+
+      <div class="catalog__toolbar">
+        <div class="field">
+          <label class="field__label" for="buscador">Buscar un producto</label>
+          <div class="input-wrap">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-search"></use></svg>
+            <input class="input" type="search" id="buscador" placeholder="Ej. frijol, leche, cloro..." autocomplete="off">
+          </div>
+          <span class="field__hint" id="resultCount" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="field">
+          <span class="field__label" id="filtrosLabel">Filtrar por categoría</span>
+          <div class="filters" role="group" aria-labelledby="filtrosLabel" id="filtros">
+            <button class="filter-chip" type="button" data-cat="todos" aria-pressed="true">Todos</button>
+            <button class="filter-chip" type="button" data-cat="despensa" aria-pressed="false">Despensa</button>
+            <button class="filter-chip" type="button" data-cat="lacteos" aria-pressed="false">Lácteos y huevo</button>
+            <button class="filter-chip" type="button" data-cat="pan" aria-pressed="false">Pan y tortillas</button>
+            <button class="filter-chip" type="button" data-cat="bebidas" aria-pressed="false">Bebidas</button>
+            <button class="filter-chip" type="button" data-cat="botanas" aria-pressed="false">Botanas y dulces</button>
+            <button class="filter-chip" type="button" data-cat="limpieza" aria-pressed="false">Limpieza e higiene</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <noscript>
+          <p class="empty-state">
+            Para armar tu pedido en línea necesitas activar JavaScript.
+            También puedes llamarnos al <a href="tel:+5352046805">+53 5204 6805</a> o
+            escribirnos por WhatsApp y te atendemos igual.
+          </p>
+        </noscript>
+      </div>
+
+      <p class="catalog__note">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="#i-info"></use></svg>
+        <span>
+          <strong>¿No ves lo que buscas?</strong> Mándanos tu lista por WhatsApp.
+          Manejamos muchas marcas que no alcanzan a salir en esta página y te conseguimos lo que falte.
+        </span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SERVICIOS
+       ======================================================== -->
+  <section class="section section--surface" id="servicios">
+    <div class="container">
+      <div class="section-head">
+        <h2>Además de abarrotes, te resolvemos el día</h2>
+        <p class="lead">Los recados de siempre, sin salir de la colonia.</p>
+      </div>
+
+      <div class="service-grid">
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-mobile"></use></svg></span>
+          <div>
+            <h3 class="service__title">Recargas telefónicas</h3>
+            <p class="service__text">Todas las compañías, desde $20. Tiempo aire y paquetes de datos al instante.</p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-receipt"></use></svg></span>
+          <div>
+            <h3 class="service__title">Pago de servicios</h3>
+            <p class="service__text">Luz, agua, teléfono, internet y televisión de paga. Te damos tu comprobante impreso.</p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-droplet"></use></svg></span>
+          <div>
+            <h3 class="service__title">Garrafón de agua</h3>
+            <p class="service__text">Relleno de 20 litros y venta de garrafón nuevo. También lo llevamos a tu casa.</p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-snowflake"></use></svg></span>
+          <div>
+            <h3 class="service__title">Hielo en bolsa</h3>
+            <p class="service__text">Bolsa de 5 kg siempre disponible. Ideal para la carne asada del fin de semana.</p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-tortilla"></use></svg></span>
+          <div>
+            <h3 class="service__title">Tortillas calientes</h3>
+            <p class="service__text">Llegan a las 8:00 y a las 17:00. Apártalas por WhatsApp y te las guardamos.</p>
+          </div>
+        </div>
+        <div class="service">
+          <span class="service__icon" aria-hidden="true"><svg class="icon"><use href="#i-package"></use></svg></span>
+          <div>
+            <h3 class="service__title">Recibimos tu paquetería</h3>
+            <p class="service__text">Si no estás en casa, dejamos tus paquetes guardados sin costo hasta que pases.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CÓMO PEDIR
+       ======================================================== -->
+  <section class="section" id="como-pedir">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2>Pedir es cosa de tres pasos</h2>
+        <p class="lead">Sin apps, sin registros y sin comisiones. Solo tu WhatsApp.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <h3 class="step__title">Arma tu lista</h3>
+          <p class="step__text">Agrega del catálogo todo lo que necesitas. Puedes cambiar cantidades cuando quieras.</p>
+        </div>
+        <div class="step">
+          <h3 class="step__title">Mándanos el mensaje</h3>
+          <p class="step__text">Con un toque se abre WhatsApp con tu pedido y tu dirección ya escritos. Solo das enviar.</p>
+        </div>
+        <div class="step">
+          <h3 class="step__title">Recibe y paga</h3>
+          <p class="step__text">Te confirmamos el total y salimos. Pagas en efectivo o por transferencia al recibir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       TESTIMONIOS
+       ======================================================== -->
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2>Lo que dicen los vecinos</h2>
+      </div>
+
+      <div class="quote-grid">
+        <figure class="quote">
+          <div class="quote__stars" role="img" aria-label="5 de 5 estrellas">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+          </div>
+          <blockquote class="quote__text">Pido en la mañana antes de salir al trabajo y cuando llego ya está todo en la cocina. Me ahorran la ida al súper.</blockquote>
+          <figcaption class="quote__person">
+            <span class="quote__avatar" aria-hidden="true">MG</span>
+            <span>
+              <span class="quote__name">María G.</span>
+              <span class="quote__meta">Vecina de la calle Morelos</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <div class="quote__stars" role="img" aria-label="5 de 5 estrellas">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+          </div>
+          <blockquote class="quote__text">Los precios son los mismos que en la tienda, no te cobran de más por llevarlo. Y las tortillas siempre calientitas.</blockquote>
+          <figcaption class="quote__person">
+            <span class="quote__avatar" aria-hidden="true">JR</span>
+            <span>
+              <span class="quote__name">Jorge R.</span>
+              <span class="quote__meta">Cliente desde hace 6 años</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <div class="quote__stars" role="img" aria-label="5 de 5 estrellas">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-star"></use></svg>
+          </div>
+          <blockquote class="quote__text">Me reciben los paquetes cuando no estoy y me avisan por mensaje. Eso vale oro viviendo sola.</blockquote>
+          <figcaption class="quote__person">
+            <span class="quote__avatar" aria-hidden="true">LP</span>
+            <span>
+              <span class="quote__name">Lucía P.</span>
+              <span class="quote__meta">Vecina del edificio de la esquina</span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CTA FINAL
+       ======================================================== -->
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <div>
+        <h2>¿Se te acabó algo? Nosotros te lo llevamos</h2>
+        <p>Escríbenos tu lista o arma tu pedido en el catálogo. Estamos a la vuelta de tu casa, de 7:00 a 22:00 todos los días.</p>
+      </div>
+      <div class="cta-band__actions">
+        <a class="btn btn--primary" href="#" data-wa-direct>
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+          Escribir por WhatsApp
+        </a>
+        <a class="btn btn--ghost" href="tel:+5352046805">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"></use></svg>
+          Llamar a la tienda
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ==========================================================
+     FOOTER
+     ========================================================== -->
+<footer class="footer" id="contacto">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand">
+          <span class="brand__mark" aria-hidden="true">
+            <svg class="icon"><use href="#i-store"></use></svg>
+          </span>
+          <span class="brand__name">NosooSuper</span>
+        </span>
+        <p>Abarrotes, recados y servicios para la colonia desde 1998. Atendidos por la familia, como debe ser.</p>
+        <div class="social">
+          <a class="social__link" href="#" aria-label="Facebook de NosooSuper">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-facebook"></use></svg>
+          </a>
+          <a class="social__link" href="#" aria-label="Instagram de NosooSuper">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-instagram"></use></svg>
+          </a>
+          <a class="social__link" href="#" data-wa-direct aria-label="WhatsApp de NosooSuper">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3>Dónde estamos</h3>
+        <ul class="footer__list">
+          <li>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg>
+            <span>Calle Morelos 123, esq. Av. Juárez<br>Col. Centro, CDMX</span>
+          </li>
+          <li>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"></use></svg>
+            <span>Lunes a domingo<br>7:00 a 22:00 h</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contacto</h3>
+        <ul class="footer__list">
+          <li>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"></use></svg>
+            <a href="tel:+5352046805">+53 5204 6805</a>
+          </li>
+          <li>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+            <a href="#" data-wa-direct>Pedidos por WhatsApp</a>
+          </li>
+          <li>
+            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-truck"></use></svg>
+            <span>Entregas en un radio de 1.5 km</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Secciones</h3>
+        <ul class="footer__list">
+          <li><a href="#categorias">Categorías</a></li>
+          <li><a href="#promos">Ofertas de la semana</a></li>
+          <li><a href="#catalogo">Catálogo y precios</a></li>
+          <li><a href="#servicios">Otros servicios</a></li>
+          <li><a href="#como-pedir">Cómo pedir</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>&copy; <span id="year">2026</span> NosooSuper. Precios en pesos mexicanos, sujetos a cambio sin previo aviso.</span>
+      <span>Los datos de contacto y dirección son de ejemplo: cámbialos por los reales.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==========================================================
+     CARRITO (panel lateral)
+     ========================================================== -->
+<div class="overlay" id="overlay" hidden></div>
+
+<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+  <div class="cart__head">
+    <h2 class="cart__title" id="cartTitle">Mi pedido</h2>
+    <button class="cart__close" type="button" id="cartClose" aria-label="Cerrar mi pedido">
+      <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+  </div>
+
+  <div class="cart__body" id="cartBody">
+    <!-- Generado desde js/app.js -->
+  </div>
+
+  <div class="cart__foot" id="cartFoot" hidden>
+    <div class="sum-row"><span>Productos</span><span id="sumItems">$0</span></div>
+    <div class="sum-row"><span>Envío a domicilio</span><span id="sumShip">$0</span></div>
+    <div class="sum-row sum-row--total"><span>Total</span><span id="sumTotal">$0</span></div>
+    <button class="btn btn--primary btn--block" type="button" id="sendOrder">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <p class="cart__hint">Se abre WhatsApp con tu pedido escrito. Nada se cobra en esta página.</p>
+  </div>
+</aside>
+
+<!-- Botón flotante -->
+<a class="fab" href="#" data-wa-direct>
+  <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+  <span class="fab__label">Pedir por WhatsApp</span>
+</a>
+
+<!-- Aviso al agregar productos -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+  <span id="toastText"></span>
+</div>
+
+<script src="js/products.js?v=1"></script>
+<script src="js/app.js?v=1"></script>
+</body>
+</html>

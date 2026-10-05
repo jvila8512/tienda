@@ -740,7 +740,23 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-transform: uppercase;
   padding: 3px var(--space-2);
   border-radius: var(--radius-full);
+  z-index: 2;
 }
+.product__badge + .product__badge { left: auto; right: var(--space-2); }
+.product__badge--new { background: var(--green-600); }
+.product__badge--low { background: #D97706; }
+.product__badge--out { background: #DC2626; }
+
+.product__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.promo-card__icon img { width: 48px; height: 48px; object-fit: cover; border-radius: 10px; }
+
+.product--agotado .product__thumb { opacity: 0.55; filter: grayscale(0.6); }
+.product--agotado .product__add { opacity: 0.4; cursor: not-allowed; }
 .product__name {
   font-family: var(--font-display);
   font-size: var(--text-sm);

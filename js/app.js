@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NosooSuper — Lógica del catálogo y del pedido por WhatsApp
+   NossoSuper — Lógica del catálogo y del pedido por WhatsApp
    Depende de js/products.js (TIENDA, CATEGORIAS, PRODUCTOS)
    ========================================================================== */
 (function () {
@@ -23,6 +23,28 @@
 
   const iconoDe = (p) => p.icono || (CATEGORIAS[p.cat] && CATEGORIAS[p.cat].icono) || 'i-bag';
   const porId = (id) => PRODUCTOS.find((p) => p.id === id);
+
+  /* Agotado = no se puede agregar. stock === 0 o el flag explícito. */
+  const agotadoDe = (p) => p.agotado === true || (typeof p.stock === 'number' && p.stock <= 0);
+  const pocasDe = (p) => !agotadoDe(p) && (typeof p.stock === 'number') && (typeof p.stockMin === 'number') && p.stock <= p.stockMin;
+
+  const fotoDe = (p) => p.foto || null;
+
+  /* Badges del producto, en orden de prioridad (máx. 2 visibles) */
+  function badgesDe(p) {
+    const b = [];
+    if (agotadoDe(p)) b.push({ cls: 'product__badge--out', txt: 'Agotado' });
+    if (p.antes && p.antes > p.precio) b.push({ cls: '', txt: 'Oferta' });
+    if (pocasDe(p)) b.push({ cls: 'product__badge--low', txt: 'Últimas' });
+    if (p.nuevo === true) b.push({ cls: 'product__badge--new', txt: 'Nuevo' });
+    return b.slice(0, 2);
+  }
+
+  function mediaDe(p) {
+    const f = fotoDe(p);
+    if (f) return `<img class="product__img" src="${esc(f)}" alt="${esc(p.nombre)}" loading="lazy">`;
+    return `<svg class="icon icon--lg" aria-hidden="true"><use href="#${iconoDe(p)}"></use></svg>`;
+  }
 
   /* localStorage puede fallar (modo privado, cookies bloqueadas): nunca romper la página */
   const store = {
@@ -120,7 +142,7 @@
         <article class="promo-card">
           <span class="promo-card__tag">-${pct}%</span>
           <span class="promo-card__icon" aria-hidden="true">
-            <svg class="icon icon--lg"><use href="#${iconoDe(p)}"></use></svg>
+            ${mediaDe(p)}
           </span>
           <div>
             <h3 class="promo-card__name">${esc(p.nombre)}</h3>
@@ -130,7 +152,7 @@
             <span class="promo-card__now">${money(p.precio)}</span>
             <span class="promo-card__was">${money(p.antes)}</span>
           </p>
-          <button class="btn btn--accent btn--sm" type="button" data-add="${p.id}">
+           <button class="btn btn--accent btn--sm" type="button" data-add="${p.id}" ${agotadoDe(p) ? 'disabled aria-disabled="true"' : ''}>
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
             Agregar al pedido
           </button>
@@ -170,10 +192,10 @@
         const enCarrito = carrito[p.id] || 0;
         const oferta = p.antes && p.antes > p.precio;
         return `
-          <article class="product">
+          <article class="product${agotadoDe(p) ? ' product--agotado' : ''}">
             <div class="product__thumb">
-              ${oferta ? '<span class="product__badge">Oferta</span>' : ''}
-              <svg class="icon icon--lg" aria-hidden="true"><use href="#${iconoDe(p)}"></use></svg>
+              ${badgesDe(p).map((b) => `<span class="product__badge ${b.cls}">${b.txt}</span>`).join('')}
+              ${mediaDe(p)}
             </div>
             <div>
               <h3 class="product__name">${esc(p.nombre)}</h3>
@@ -184,8 +206,9 @@
                 ${money(p.precio)}
                 ${oferta ? `<span class="product__price-was">${money(p.antes)}</span>` : ''}
               </span>
-              <button class="product__add" type="button" data-add="${p.id}"
-                      aria-label="Agregar ${esc(p.nombre)} al pedido">
+               <button class="product__add" type="button" data-add="${p.id}"
+                       ${agotadoDe(p) ? 'disabled aria-disabled="true"' : ''}
+                       aria-label="Agregar ${esc(p.nombre)} al pedido">
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
               </button>
             </div>
@@ -312,7 +335,7 @@
      ---------------------------------------------------------------------- */
   function agregar(id, aviso) {
     const p = porId(id);
-    if (!p) return;
+    if (!p || agotadoDe(p)) return;
     carrito[id] = (carrito[id] || 0) + 1;
     guardarCarrito();
     pintarCarrito();
@@ -520,7 +543,37 @@
      Arranque
      ---------------------------------------------------------------------- */
   $('#year').textContent = new Date().getFullYear();
-  pintarPromos();
-  pintarCatalogo();
-  pintarCarrito();
+
+  /* Carga el catálogo remoto (productos.json) si existe; si falla, queda
+     con los datos inline de js/products.js. Mutamos los objetos en su sitio
+     para no romper las referencias ya capturadas. */
+  function aplicarCatalogoRemoto(json) {
+    if (json.tienda) Object.assign(TIENDA, json.tienda);
+    if (json.categorias) Object.assign(CATEGORIAS, json.categorias);
+    if (Array.isArray(json.productos)) {
+      PRODUCTOS.splice(0, PRODUCTOS.length, ...json.productos);
+    }
+  }
+
+  function arrancar() {
+    pintarPromos();
+    pintarCatalogo();
+    pintarCarrito();
+  }
+
+  (async function () {
+    let cargado = false;
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 4000);
+      const res = await fetch('productos.json', { signal: ctrl.signal, cache: 'no-cache' });
+      clearTimeout(t);
+      if (res.ok) {
+        const json = await res.json();
+        aplicarCatalogoRemoto(json);
+        cargado = true;
+      }
+    } catch (e) { /* sin conexión o file:// -> usar datos inline */ }
+    arrancar();
+  })();
 })();

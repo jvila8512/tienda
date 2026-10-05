@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NosooSuper — Configuración y catálogo
+   NossoSuper — Configuración y catálogo
    --------------------------------------------------------------------------
    ESTE ES EL ÚNICO ARCHIVO QUE NECESITAS EDITAR PARA:
      · cambiar el número de WhatsApp
@@ -11,13 +11,13 @@
    1. DATOS DE LA TIENDA  ← CAMBIA ESTO POR LOS DATOS REALES
    -------------------------------------------------------------------------- */
 const TIENDA = {
-  nombre: 'NosooSuper',
+  nombre: 'NossoSuper',
 
   // Número de WhatsApp en formato internacional, SOLO DÍGITOS.
   whatsapp: '5352046805',
 
   // Mensaje del botón "Pedir por WhatsApp" cuando el carrito está vacío
-  saludo: '¡Hola! Quiero hacer un pedido en NosooSuper.',
+  saludo: '¡Hola! Quiero hacer un pedido en NossoSuper.',
 
   envio: {
     costo: 20,      // costo del envío a domicilio

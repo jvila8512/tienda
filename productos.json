@@ -325,7 +325,7 @@
       "precio": 630,
       "antes": null,
       "cat": "13",
-      "foto": null,
+      "foto": "assets/productos/19.webp",
       "stock": 0,
       "stockMin": 5,
       "nuevo": false,

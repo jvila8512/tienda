@@ -15,10 +15,6 @@
       "nombre": "All",
       "icono": "i-bag"
     },
-    "4": {
-      "nombre": "PoS",
-      "icono": "i-can"
-    },
     "5": {
       "nombre": "Galletas, Snacks y Dulces",
       "icono": "i-cookie"
@@ -65,36 +61,6 @@
     }
   },
   "productos": [
-    {
-      "id": "1",
-      "nombre": "Propinas",
-      "unidad": "Unidades",
-      "precio": 1,
-      "antes": null,
-      "cat": "4",
-      "foto": null,
-      "stock": 0,
-      "stockMin": 5,
-      "nuevo": false,
-      "agotado": true,
-      "enPromocion": false,
-      "icono": "i-can"
-    },
-    {
-      "id": "2",
-      "nombre": "Descuento",
-      "unidad": "Unidades",
-      "precio": 0,
-      "antes": null,
-      "cat": "4",
-      "foto": null,
-      "stock": 0,
-      "stockMin": 5,
-      "nuevo": false,
-      "agotado": true,
-      "enPromocion": false,
-      "icono": "i-can"
-    },
     {
       "id": "4",
       "nombre": "GALLETAS GORONA",

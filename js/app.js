@@ -136,7 +136,7 @@
     toastText.textContent = mensaje;
     toast.classList.add('is-visible');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2600);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 5000);
   }
 
   /* ------------------------------------------------------------------------

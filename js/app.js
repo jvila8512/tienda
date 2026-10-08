@@ -84,6 +84,7 @@
   const promoGrid = $('#promoGrid');
   const resultCount = $('#resultCount');
   const filtros = $('#filtros');
+  const catGrid = $('#catGrid');
   const buscador = $('#buscador');
 
   const cart = $('#cart');
@@ -106,12 +107,25 @@
     });
   }
 
+  /* Config de envío robusta: soporta tanto tienda.envio.{costo,gratisDesde}
+     como los campos sueltos tienda.costoEnvio / tienda.envioGratisDesde. */
+  function configEnvio() {
+    const ev = TIENDA.envio || {};
+    return {
+      costo: typeof ev.costo === 'number' ? ev.costo
+           : (typeof TIENDA.costoEnvio === 'number' ? TIENDA.costoEnvio : 0),
+      gratisDesde: typeof ev.gratisDesde === 'number' ? ev.gratisDesde
+           : (typeof TIENDA.envioGratisDesde === 'number' ? TIENDA.envioGratisDesde : 0)
+    };
+  }
+
   function totales() {
     const items = lineas();
     const piezas = items.reduce((acc, l) => acc + l.cantidad, 0);
     const subtotal = items.reduce((acc, l) => acc + l.importe, 0);
-    const gratis = subtotal >= TIENDA.envio.gratisDesde;
-    const envio = piezas === 0 || gratis ? 0 : TIENDA.envio.costo;
+    const cfg = configEnvio();
+    const gratis = subtotal >= cfg.gratisDesde;
+    const envio = piezas === 0 || gratis ? 0 : cfg.costo;
     return { items, piezas, subtotal, envio, gratis, total: subtotal + envio };
   }
 
@@ -380,7 +394,7 @@
      Mensaje de WhatsApp
      ---------------------------------------------------------------------- */
   function enlaceWA(texto) {
-    return 'https://wa.me/' + TIENDA.whatsapp + '?text=' + encodeURIComponent(texto);
+    return 'https://wa.me/' + String(TIENDA.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(texto);
   }
 
   function datosDelForm() {
@@ -479,6 +493,37 @@
     if (chip) { aplicarCategoria(chip.dataset.cat); return; }
   });
 
+  /* Construye los chips de categoría a partir de CATEGORIAS (que viene del
+     JSON real de la app), conservando el chip "Todos". */
+  function construirFiltros() {
+    const claves = Object.keys(CATEGORIAS).filter((k) => {
+      const n = (CATEGORIAS[k].nombre || '').toString().trim().toLowerCase();
+      return n !== 'all' && n !== 'todos';
+    });
+    const chips = ['<button class="filter-chip" type="button" data-cat="todos" aria-pressed="true">Todos</button>'];
+    claves.forEach((k) => {
+      chips.push(`<button class="filter-chip" type="button" data-cat="${k}" aria-pressed="false">${esc(CATEGORIAS[k].nombre)}</button>`);
+    });
+    filtros.innerHTML = chips.join('');
+  }
+
+  /* Muestra las tarjetas de categoría (sección #categorias) con las del JSON. */
+  function construirCatGrid() {
+    if (!catGrid) return;
+    const claves = Object.keys(CATEGORIAS).filter((k) => {
+      const n = (CATEGORIAS[k].nombre || '').toString().trim().toLowerCase();
+      return n !== 'all' && n !== 'todos';
+    });
+    catGrid.innerHTML = claves.map((k) => {
+      const icono = CATEGORIAS[k].icono || 'i-bag';
+      return `
+        <a class="cat-card" href="#catalogo" data-cat="${k}">
+          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#${icono}"></use></svg></span>
+          <span class="cat-card__name">${esc(CATEGORIAS[k].nombre)}</span>
+        </a>`;
+    }).join('');
+  }
+
   function aplicarCategoria(valor) {
     categoria = valor;
     $$('.filter-chip', filtros).forEach((c) => {
@@ -556,6 +601,8 @@
   }
 
   function arrancar() {
+    construirFiltros();
+    construirCatGrid();
     pintarPromos();
     pintarCatalogo();
     pintarCarrito();

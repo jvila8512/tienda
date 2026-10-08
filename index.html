@@ -273,11 +273,9 @@
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
-      <a class="nav__link" href="#categorias">Categorías</a>
       <a class="nav__link" href="#promos">Ofertas</a>
       <a class="nav__link" href="#catalogo">Catálogo</a>
       <a class="nav__link" href="#servicios">Servicios</a>
-      <a class="nav__link" href="#como-pedir">Cómo pedir</a>
     </nav>
 
     <div class="header__actions">
@@ -297,11 +295,9 @@
 
   <nav class="mobile-nav" id="mobileNav" aria-label="Navegación móvil">
     <div class="container">
-      <a class="mobile-nav__link" href="#categorias"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-bag"></use></svg> Categorías</a>
       <a class="mobile-nav__link" href="#promos"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-tag"></use></svg> Ofertas de la semana</a>
       <a class="mobile-nav__link" href="#catalogo"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-search"></use></svg> Catálogo y precios</a>
       <a class="mobile-nav__link" href="#servicios"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-receipt"></use></svg> Otros servicios</a>
-      <a class="mobile-nav__link" href="#como-pedir"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-truck"></use></svg> Cómo pedir</a>
       <a class="mobile-nav__link" href="#contacto"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"></use></svg> Dónde estamos</a>
     </div>
   </nav>
@@ -361,39 +357,6 @@
     </div>
   </section>
 
-  <!-- ========================================================
-       CATEGORÍAS
-       ======================================================== -->
-  <section class="section" id="categorias">
-    <div class="container">
-      <div class="cat-grid" id="catGrid">
-        <a class="cat-card" href="#catalogo" data-cat="despensa">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-bag"></use></svg></span>
-          <span class="cat-card__name">Despensa</span>
-        </a>
-        <a class="cat-card" href="#catalogo" data-cat="lacteos">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-milk"></use></svg></span>
-          <span class="cat-card__name">Lácteos y huevo</span>
-        </a>
-        <a class="cat-card" href="#catalogo" data-cat="pan">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-tortilla"></use></svg></span>
-          <span class="cat-card__name">Pan y tortillas</span>
-        </a>
-        <a class="cat-card" href="#catalogo" data-cat="bebidas">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-bottle"></use></svg></span>
-          <span class="cat-card__name">Bebidas</span>
-        </a>
-        <a class="cat-card" href="#catalogo" data-cat="botanas">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-cookie"></use></svg></span>
-          <span class="cat-card__name">Botanas y dulces</span>
-        </a>
-        <a class="cat-card" href="#catalogo" data-cat="limpieza">
-          <span class="cat-card__icon" aria-hidden="true"><svg class="icon icon--lg"><use href="#i-spray"></use></svg></span>
-          <span class="cat-card__name">Limpieza e higiene</span>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <!-- ========================================================
        OFERTAS
@@ -425,6 +388,20 @@
         <p class="lead">Selecciona tus productos, calcula tu inversión total y recibe tu pre-factura lista para enviar por WhatsApp.</p>
       </div>
 
+      <div class="steps">
+        <div class="step">
+          <h3 class="step__title">Explora y agrega</h3>
+          <p class="step__text">Navega por nuestro catálogo de productos disponibles y añade las cantidades que necesites a tu carrito.</p>
+        </div>
+        <div class="step">
+          <h3 class="step__title">Revisa tu Pre-Factura</h3>
+          <p class="step__text">Entra al carrito para revisar tu lista detallada y ver el cálculo total de tu posible compra antes de pedir.</p>
+        </div>
+        <div class="step">
+          <h3 class="step__title">Envía por WhatsApp</h3>
+          <p class="step__text">Con un solo clic, se generará el resumen de tu cotización en un mensaje de WhatsApp para que coordinemos stock, pago y entrega.</p>
+        </div>
+      </div>
       <div class="catalog__toolbar">
         <div class="field">
           <label class="field__label" for="buscador">Buscar un producto</label>
@@ -526,32 +503,6 @@
     </div>
   </section>
 
-  <!-- ========================================================
-       CÓMO PEDIR
-       ======================================================== -->
-  <section class="section" id="como-pedir">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <h2>Cómo funciona</h2>
-        <p class="lead">Sin apps, sin registros y sin comisiones. Solo tu WhatsApp.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <h3 class="step__title">Explora y agrega</h3>
-          <p class="step__text">Navega por nuestro catálogo de productos disponibles y añade las cantidades que necesites a tu carrito.</p>
-        </div>
-        <div class="step">
-          <h3 class="step__title">Revisa tu Pre-Factura</h3>
-          <p class="step__text">Entra al carrito para revisar tu lista detallada y ver el cálculo total de tu posible compra antes de pedir.</p>
-        </div>
-        <div class="step">
-          <h3 class="step__title">Envía por WhatsApp</h3>
-          <p class="step__text">Con un solo clic, se generará el resumen de tu cotización en un mensaje de WhatsApp para que coordinemos stock, pago y entrega.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ========================================================
        TESTIMONIOS
@@ -705,11 +656,9 @@
       <div>
         <h3>Secciones</h3>
         <ul class="footer__list">
-          <li><a href="#categorias">Categorías</a></li>
           <li><a href="#promos">Ofertas de la semana</a></li>
           <li><a href="#catalogo">Catálogo y precios</a></li>
           <li><a href="#servicios">Otros servicios</a></li>
-          <li><a href="#como-pedir">Cómo pedir</a></li>
         </ul>
       </div>
     </div>

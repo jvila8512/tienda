@@ -168,7 +168,7 @@
           </p>
            <button class="btn btn--accent btn--sm" type="button" data-add="${p.id}" ${agotadoDe(p) ? 'disabled aria-disabled="true"' : ''}>
             <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
-            Agregar al pedido
+            Agregar a mi cotización
           </button>
         </article>`;
     }).join('');
@@ -213,7 +213,7 @@
             </div>
             <div>
               <h3 class="product__name">${esc(p.nombre)}</h3>
-              <span class="product__unit">${esc(p.unidad)}${enCarrito ? ' · ' + enCarrito + ' en tu pedido' : ''}</span>
+              <span class="product__unit">${esc(p.unidad)}${enCarrito ? ' · ' + enCarrito + ' en tu cotización' : ''}</span>
             </div>
             <div class="product__foot">
               <span class="product__price">
@@ -222,7 +222,7 @@
               </span>
                <button class="product__add" type="button" data-add="${p.id}"
                        ${agotadoDe(p) ? 'disabled aria-disabled="true"' : ''}
-                       aria-label="Agregar ${esc(p.nombre)} al pedido">
+                       aria-label="Agregar ${esc(p.nombre)} a mi cotización">
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
               </button>
             </div>
@@ -244,7 +244,7 @@
   cartBody.innerHTML = `
     <div class="cart__empty" id="cartEmpty">
       <svg class="icon icon--lg" aria-hidden="true"><use href="#i-cart"></use></svg>
-      <p><strong>Tu pedido está vacío</strong></p>
+      <p><strong>Tu cotización está vacía</strong></p>
       <p>Agrega productos del catálogo y aquí los vas viendo.</p>
       <a class="btn btn--primary btn--sm" href="#catalogo" data-close-cart>Ir al catálogo</a>
     </div>
@@ -303,7 +303,7 @@
     cartCount.textContent = t.piezas;
     cartCount.classList.toggle('is-visible', t.piezas > 0);
     $('#cartOpen').setAttribute('aria-label',
-      t.piezas ? `Abrir mi pedido, ${t.piezas} ${t.piezas === 1 ? 'producto' : 'productos'}` : 'Abrir mi pedido');
+      t.piezas ? `Abrir mi cotización, ${t.piezas} ${t.piezas === 1 ? 'producto' : 'productos'}` : 'Abrir mi cotización');
 
     const vacio = t.piezas === 0;
     cartEmpty.hidden = !vacio;
@@ -439,7 +439,7 @@
 
   function enviarPedido() {
     const t = totales();
-    if (!t.piezas) { avisar('Agrega productos antes de enviar tu pedido'); return; }
+    if (!t.piezas) { avisar('Agrega productos antes de enviar tu cotización'); return; }
 
     const d = datosDelForm();
     if (!d.nombre) {

@@ -281,7 +281,7 @@
     </nav>
 
     <div class="header__actions">
-      <button class="btn btn--ghost btn--icon cart-btn" type="button" id="cartOpen" aria-label="Abrir mi pedido" aria-haspopup="dialog">
+      <button class="btn btn--ghost btn--icon cart-btn" type="button" id="cartOpen" aria-label="Abrir mi pre-factura" aria-haspopup="dialog">
         <svg class="icon" aria-hidden="true"><use href="#i-cart"></use></svg>
         <span class="cart-btn__count" id="cartCount" aria-hidden="true">0</span>
       </button>
@@ -421,8 +421,8 @@
   <section class="section" id="catalogo">
     <div class="container">
       <div class="section-head">
-        <h2>Catálogo y precios</h2>
-        <p class="lead">Arma tu lista aquí mismo. Al terminar te mandamos todo en un mensaje de WhatsApp listo para enviar.</p>
+        <h2>Arma tu cotización en minutos</h2>
+        <p class="lead">Selecciona tus productos, calcula tu inversión total y recibe tu pre-factura lista para enviar por WhatsApp.</p>
       </div>
 
       <div class="catalog__toolbar">
@@ -532,22 +532,22 @@
   <section class="section" id="como-pedir">
     <div class="container">
       <div class="section-head section-head--center">
-        <h2>Pedir es cosa de tres pasos</h2>
+        <h2>Cómo funciona</h2>
         <p class="lead">Sin apps, sin registros y sin comisiones. Solo tu WhatsApp.</p>
       </div>
 
       <div class="steps">
         <div class="step">
-          <h3 class="step__title">Arma tu lista</h3>
-          <p class="step__text">Agrega del catálogo todo lo que necesitas. Puedes cambiar cantidades cuando quieras.</p>
+          <h3 class="step__title">Explora y agrega</h3>
+          <p class="step__text">Navega por nuestro catálogo de productos disponibles y añade las cantidades que necesites a tu carrito.</p>
         </div>
         <div class="step">
-          <h3 class="step__title">Mándanos el mensaje</h3>
-          <p class="step__text">Con un toque se abre WhatsApp con tu pedido y tu dirección ya escritos. Solo das enviar.</p>
+          <h3 class="step__title">Revisa tu Pre-Factura</h3>
+          <p class="step__text">Entra al carrito para revisar tu lista detallada y ver el cálculo total de tu posible compra antes de pedir.</p>
         </div>
         <div class="step">
-          <h3 class="step__title">Recibe y paga</h3>
-          <p class="step__text">Te confirmamos el total y salimos. Pagas en efectivo o por transferencia al recibir.</p>
+          <h3 class="step__title">Envía por WhatsApp</h3>
+          <p class="step__text">Con un solo clic, se generará el resumen de tu cotización en un mensaje de WhatsApp para que coordinemos stock, pago y entrega.</p>
         </div>
       </div>
     </div>
@@ -728,8 +728,8 @@
 
 <aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
   <div class="cart__head">
-    <h2 class="cart__title" id="cartTitle">Mi pedido</h2>
-    <button class="cart__close" type="button" id="cartClose" aria-label="Cerrar mi pedido">
+    <h2 class="cart__title" id="cartTitle">Mi pre-factura</h2>
+    <button class="cart__close" type="button" id="cartClose" aria-label="Cerrar mi pre-factura">
       <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
     </button>
   </div>
@@ -744,9 +744,9 @@
     <div class="sum-row sum-row--total"><span>Total</span><span id="sumTotal">$0</span></div>
     <button class="btn btn--primary btn--block" type="button" id="sendOrder">
       <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
-      Enviar pedido por WhatsApp
+      Enviar cotización por WhatsApp
     </button>
-    <p class="cart__hint">Se abre WhatsApp con tu pedido escrito. Nada se cobra en esta página.</p>
+    <p class="cart__hint">Esta pre-factura es una cotización estimada de los productos seleccionados. Al enviar tu mensaje por WhatsApp, confirmaremos disponibilidad de stock y datos de facturación/pago.</p>
   </div>
 </aside>
 

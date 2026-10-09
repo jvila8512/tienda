@@ -1,76 +1,125 @@
-# Cambios al JSON (productos1111.json) para que la web NossoSuper lo lea bien
+# Guía del JSON (`productos.json`) para la web NossoSuper / MinimAc
 
-La web ya adaptable a tu schema. Estos son los ajustes que tiene que hacer la app
-Flutter (etecsa) al generar el JSON que comitea a GitHub.
+Estado revisado contra la **sincronización real** que sube la app
+(etecsa → GitHub). La web ya lee este schema, pero hay campos que la
+app está mandando mal o vacíos.
 
-## 1. Moneda (YA lo hiciste)
+## 🔴 Lo nuevo y roto (revisión de hoy)
+
+### 1. Nombre de la tienda — ¡hay 3 distintos!
+- El **hero** del HTML dice **"MinimAc"**.
+- El `productos.json` dice `"nombre": "Nosso"`.
+- El `<title>`, footer y datos estructurados del HTML dicen **"NossoSuper"**.
+
+**Arreglo:** elegí **un solo nombre** y usalo en todos lados. Si es
+"MinimAc", mandá en el JSON `"nombre": "MinimAc"` y actualizá el HTML
+(title, footer, JSON-LD).
+
+### 2. WhatsApp — empieza con 0 (roto)
+Hoy viene `"whatsapp": "05358994267"`. Ese `0` inicial rompe el link
+`wa.me/...`. Además cambió respecto al de antes (`5352046805`).
+
+**Arreglo:** mandá **solo dígitos, sin `0` inicial ni `+`**:
+```json
+"whatsapp": "5358994267"
+```
+(para Cuba: `53` + número, sin el `0` de marcado interno).
+
+### 3. Moneda duplicada
+Hoy viene `"moneda": "$$"` → la web muestra **`$$145`**.
+
+**Arreglo:**
 ```json
 "moneda": "$"
 ```
-La web mostrará `$145` en vez de `CUP145`. ✅
 
-## 2. Envío — cambiar estructura (en `tienda`)
+### 4. `unidad` viene `null` (75 de 77 productos)
+La web muestra la unidad bajo el nombre; con `null` se ve la palabra
+**"null"**.
 
-**Antes:**
+**Arreglo:** mandá un string, o vacío si no aplica:
 ```json
-"tienda": {
-  "costoEnvio": 0,
-  "envioGratisDesde": 0
+"unidad": "1 L"      // o "paq. 10 pz", "unidad", "" ...
+```
+
+### 5. 🔴 73 de 77 productos vienen AGOTADOS
+`"stock": 0` y `"agotado": true` en casi todo el catálogo. Por eso
+la web muestra todo tachado "Agotado" y **no deja agregar**. Solo 4
+productos tienen stock.
+
+**Arreglo:** mandá el stock real y `agotado: false` para lo que sí
+haya:
+```json
+"stock": 24, "stockMin": 5, "agotado": false
+```
+
+### 6. `mayor` (precio por mayor) NO viene
+El JSON **no trae** el campo `mayor` en ningún producto (0 con reglas),
+aunque estaba previsto. La web **todavía no lo lee**.
+
+**Arreglo (opcional):** si querés precio por mayor, la app debe mandar:
+```json
+"mayor": [ { "desde": 20, "precio": 900 }, { "desde": 50, "precio": 800 } ]
+```
+y avisame para que la web lo muestre (hoy no lo renderiza).
+
+### 7. Fotos e iconos
+- Solo **1** producto tiene `foto` (ruta). El resto `null` → icono.
+- **0** productos y **0** categorías tienen `icono` → todo el mismo
+  icono de bolsa.
+
+**Arreglo:** subí las imágenes a `assets/productos/` y mandá
+`"foto": "assets/productos/xxx.webp"`. Para variedad, mandá `icono`
+con uno de los ids SVG de la web.
+
+---
+
+## ✅ Lo que ya está bien
+- **Envío:** `"envio": { "costo": 100, "gratisDesde": 185 }` → la web
+  lo lee bien. ✅
+- **Categorías:** 10 categorías con UUID como clave
+  (Alimentos, Bebidas, Bebidas Alcohólicas…). La web genera los chips
+  de filtro desde `json.categorias`. ✅
+- **Ids de producto:** UUID estables (no repetir). ✅
+
+## Schema completo que espera la web
+```jsonc
+{
+  "tienda": {
+    "nombre": "MinimAc",          // ← un solo nombre, coherente
+    "whatsapp": "5358994267",     // ← sin 0, sin +
+    "saludo": "...",
+    "telefono": "...",
+    "envio": { "costo": 100, "gratisDesde": 185 },
+    "moneda": "$"                 // ← un solo $
+  },
+  "categorias": {
+    "<uuid>": { "nombre": "Alimentos", "icono": "i-bag" }
+  },
+  "productos": [
+    {
+      "id": "<uuid>",
+      "nombre": "CERVEZA",
+      "unidad": "1 L",            // ← string, no null
+      "precio": 500,
+      "antes": null,              // > precio => Oferta
+      "cat": "<uuid>",
+      "foto": "assets/productos/cerveza.webp",
+      "stock": 24,                // ← > 0 para que se pueda agregar
+      "stockMin": 5,
+      "nuevo": false,
+      "agotado": false,           // ← false si hay stock
+      "enPromocion": false,
+      "icono": "i-bottle",
+      "mayor": []                 // opcional (la web aún no lo muestra)
+    }
+  ]
 }
 ```
 
-**Después (lo que la web lee):**
-```json
-"tienda": {
-  "envio": { "costo": 0, "gratisDesde": 0 }
-}
-```
-Con esto el carrito calcula el envío correcto (hoy toma un default incorrecto).
-
-## 3. WhatsApp — solo dígitos
-
-**Antes:**
-```json
-"whatsapp": "+5352046805"
-```
-
-**Después:**
-```json
-"whatsapp": "5352046805"
-```
-Sin `+`, sin espacios: el link `wa.me/5352046805?text=...` debe funcionar.
-
-## 4. Iconos (opcional pero recomendado)
-`icono` viene `null`. Si querés variedad (y no todo la bolsita), manda por
-producto o categoría uno de estos ids SVG que la web ya trae:
-
-`i-bag i-milk i-tortilla i-bottle i-cookie i-spray i-wheat i-oil i-salt i-can
-i-egg i-cheese i-butter i-bread i-donut i-soda i-juice i-coffee i-jug i-chips
-i-chocolate i-lollipop i-roll i-detergent i-soap i-bleach i-toothpaste i-droplet`
-
-## 5. Fotos
-`foto` viene `null`. Para que se vean las imágenes, el producto debe traer la
-ruta dentro del repo:
-```json
-"foto": "assets/productos/cafe.webp"
-```
-y la imagen en ese path del repo.
-
-## 6. Catálogos / disponibilidad ("hay o no hay")
-La web ya muestra badge **"Agotado"** y deshabilita agregar cuando
-`agotado: true` (o `stock <= 0`). Manda `stock` y `stockMin` reales para que el
-cliente vea bien qué hay y qué no.
-
-## 7. Categorías (ojo)
-La web lee bien el **nombre** de cada categoría (por eso cada tarjeta sale
-ruta), pero los botones de filtro están fijos en
-`despensa/lacteos/pan/bebidas/botanas/limpieza`. Tu catálogo usa categorías
-propias (Galletas, Sorbetos, Perfumes…). Para que el **filtrado** funcione hay
-que tocar la web (generar los chips desde `json.categorias`), no el JSON.
-
-## Resultado esperado en la web
-- Precios `$145`.
-- Envío $0 / gratis desde el monto que configures.
+## Resultado esperado
+- Precios `$500` (no `$$500`).
+- Envío $100 / gratis desde $185.
 - WhatsApp funcional.
-- Tarjetas con foto (cuando la subas) o icono.
-- Badge "Agotado" en lo que no tengas, y el cliente ve precios confiables.
+- Catálogo con stock visible y agregable (no todo "Agotado").
+- Unidades correctas (no "null").

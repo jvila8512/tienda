@@ -1,4 +1,4 @@
-# Guía del JSON (`productos.json`) para la web NossoSuper / MinimAc
+# Guía del JSON (`productos.json`) para la web NossoSuper
 
 Estado revisado contra la **sincronización real** que sube la app
 (etecsa → GitHub). La web ya lee este schema, pero hay campos que la
@@ -6,14 +6,13 @@ app está mandando mal o vacíos.
 
 ## 🔴 Lo nuevo y roto (revisión de hoy)
 
-### 1. Nombre de la tienda — ¡hay 3 distintos!
-- El **hero** del HTML dice **"MinimAc"**.
-- El `productos.json` dice `"nombre": "Nosso"`.
-- El `<title>`, footer y datos estructurados del HTML dicen **"NossoSuper"**.
+### 1. Nombre de la tienda — RESUELTO: **NossoSuper**
+Decidido: el nombre único es **NossoSuper**.
+- El **hero** del HTML ya lo tiene (cambié "MinimAc" → "NossoSuper"). ✅
+- El `<title>`, footer y datos estructurados del HTML ya dicen "NossoSuper". ✅
 
-**Arreglo:** elegí **un solo nombre** y usalo en todos lados. Si es
-"MinimAc", mandá en el JSON `"nombre": "MinimAc"` y actualizá el HTML
-(title, footer, JSON-LD).
+**Pendiente de la app:** mandar en el JSON `"nombre": "NossoSuper"` (hoy
+viene `"Nosso"`).
 
 ### 2. WhatsApp — empieza con 0 (roto)
 Hoy viene `"whatsapp": "05358994267"`. Ese `0` inicial rompe el link
@@ -53,15 +52,17 @@ haya:
 "stock": 24, "stockMin": 5, "agotado": false
 ```
 
-### 6. `mayor` (precio por mayor) NO viene
-El JSON **no trae** el campo `mayor` en ningún producto (0 con reglas),
-aunque estaba previsto. La web **todavía no lo lee**.
-
-**Arreglo (opcional):** si querés precio por mayor, la app debe mandar:
+### 6. `mayor` (precio por mayor) — la web YA lo muestra ✅
+El JSON **no trae** el campo `mayor` en ningún producto hoy (0 con
+reglas). Si el producto tiene reglas por mayor, la app debe mandarlas:
 ```json
 "mayor": [ { "desde": 20, "precio": 900 }, { "desde": 50, "precio": 800 } ]
 ```
-y avisame para que la web lo muestre (hoy no lo renderiza).
+- Ordenado de **menor a mayor**; `[]` si no tiene reglas.
+- La web muestra **solo informativo** en la tarjeta:
+  `Mayor desde 20 u.: $900`.
+- **NO** cambia el precio del carrito (el cliente paga el precio
+  unitario normal; el precio por mayor se acuerda por WhatsApp).
 
 ### 7. Fotos e iconos
 - Solo **1** producto tiene `foto` (ruta). El resto `null` → icono.
@@ -86,7 +87,7 @@ con uno de los ids SVG de la web.
 ```jsonc
 {
   "tienda": {
-    "nombre": "MinimAc",          // ← un solo nombre, coherente
+    "nombre": "NossoSuper",       // ← un solo nombre, coherente
     "whatsapp": "5358994267",     // ← sin 0, sin +
     "saludo": "...",
     "telefono": "...",
@@ -111,7 +112,7 @@ con uno de los ids SVG de la web.
       "agotado": false,           // ← false si hay stock
       "enPromocion": false,
       "icono": "i-bottle",
-      "mayor": []                 // opcional (la web aún no lo muestra)
+      "mayor": []                 // reglas por mayor (mostradas como info)
     }
   ]
 }

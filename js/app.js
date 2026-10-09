@@ -187,6 +187,15 @@
     });
   }
 
+  /* Precio por mayor: SOLO informativo en la tarjeta ("Mayor desde 20 u.:
+     $900"). NO modifica el precio del carrito. Reglas ordenadas de menor a
+     mayor; mostramos la primera (la de entrada). */
+  function mayorDe(p) {
+    const m = Array.isArray(p.mayor) && p.mayor.length ? p.mayor[0] : null;
+    if (!m || !Number.isFinite(+m.desde) || !Number.isFinite(+m.precio)) return '';
+    return `Mayor desde ${+m.desde} u.: ${money(+m.precio)}`;
+  }
+
   function pintarCatalogo() {
     const lista = filtrados();
 
@@ -205,6 +214,7 @@
       productGrid.innerHTML = lista.map((p) => {
         const enCarrito = carrito[p.id] || 0;
         const oferta = p.antes && p.antes > p.precio;
+        const mayorLinea = mayorDe(p);
         return `
           <article class="product${agotadoDe(p) ? ' product--agotado' : ''}">
             <div class="product__thumb">
@@ -214,6 +224,7 @@
             <div>
               <h3 class="product__name">${esc(p.nombre)}</h3>
               <span class="product__unit">${esc(p.unidad)}${enCarrito ? ' · ' + enCarrito + ' en tu cotización' : ''}</span>
+              ${mayorLinea ? `<span class="product__mayor">${mayorLinea}</span>` : ''}
             </div>
             <div class="product__foot">
               <span class="product__price">

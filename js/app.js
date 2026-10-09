@@ -70,11 +70,6 @@
   let busqueda = '';
   let ultimoFoco = null;
 
-  /* Limpia ids que ya no existen en el catálogo */
-  Object.keys(carrito).forEach((id) => {
-    if (!porId(id) || !(carrito[id] > 0)) delete carrito[id];
-  });
-
   const guardarCarrito = () => store.set(KEY_CART, carrito);
 
   /* ------------------------------------------------------------------------
@@ -323,17 +318,16 @@
         </div>
         <div class="cart-line__side">
           <span class="cart-line__total">${money(l.importe)}</span>
-          <span class="stepper">
-            <button class="stepper__btn" type="button" data-step="-1" data-id="${l.producto.id}"
-                    aria-label="Quitar uno de ${esc(l.producto.nombre)}">
-              <svg class="icon icon--sm" aria-hidden="true"><use href="#${l.cantidad === 1 ? 'i-trash' : 'i-minus'}"></use></svg>
+          <div class="cart-line__controls">
+            <input class="cart-line__qty" type="number" min="1" step="1"
+                   value="${l.cantidad}" inputmode="numeric"
+                   data-qty="${l.producto.id}"
+                   aria-label="Cantidad de ${esc(l.producto.nombre)}">
+            <button class="cart-line__remove" type="button" data-remove="${l.producto.id}"
+                    aria-label="Quitar ${esc(l.producto.nombre)} de la cotización">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-trash"></use></svg>
             </button>
-            <span class="stepper__value" aria-label="Cantidad">${l.cantidad}</span>
-            <button class="stepper__btn" type="button" data-step="1" data-id="${l.producto.id}"
-                    aria-label="Agregar uno más de ${esc(l.producto.nombre)}">
-              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
-            </button>
-          </span>
+          </div>
         </div>
       </li>`).join('');
 
@@ -357,10 +351,19 @@
     if (aviso !== false) avisar(`${p.nombre} agregado a tu pedido`);
   }
 
-  function cambiar(id, delta) {
+  /* Quita un producto completo de la cotización */
+  function quitar(id) {
     if (!carrito[id]) return;
-    carrito[id] += delta;
-    if (carrito[id] <= 0) delete carrito[id];
+    delete carrito[id];
+    guardarCarrito();
+    pintarCarrito();
+    pintarCatalogo();
+  }
+
+  /* Fija la cantidad que el usuario escribió (mínimo 1) */
+  function ponerCantidad(id, valor) {
+    const n = Math.max(1, Math.floor(Number(valor) || 1));
+    carrito[id] = n;
     guardarCarrito();
     pintarCarrito();
     pintarCatalogo();
@@ -477,9 +480,9 @@
     const add = ev.target.closest('[data-add]');
     if (add) { agregar(add.dataset.add); return; }
 
-    /* Cambiar cantidad */
-    const step = ev.target.closest('[data-step]');
-    if (step) { cambiar(step.dataset.id, Number(step.dataset.step)); return; }
+    /* Quitar producto de la cotización */
+    const rm = ev.target.closest('[data-remove]');
+    if (rm) { quitar(rm.dataset.remove); return; }
 
     /* Cerrar carrito desde dentro */
     if (ev.target.closest('[data-close-cart]')) { cerrarCarrito(); return; }
@@ -491,6 +494,12 @@
     /* Chips de filtro */
     const chip = ev.target.closest('.filter-chip[data-cat]');
     if (chip) { aplicarCategoria(chip.dataset.cat); return; }
+  });
+
+  /* Cantidad escrita a mano en el carrito */
+  document.addEventListener('change', (ev) => {
+    const qty = ev.target.closest('[data-qty]');
+    if (qty) { ponerCantidad(qty.dataset.qty, qty.value); }
   });
 
   /* Construye los chips de categoría a partir de CATEGORIAS (que viene del
@@ -605,6 +614,12 @@
     construirCatGrid();
     pintarPromos();
     pintarCatalogo();
+    /* Limpia ids que ya no existen en el catálogo (ahora sí conocemos el
+       catálogo real, local o remoto) */
+    Object.keys(carrito).forEach((id) => {
+      if (!porId(id) || !(carrito[id] > 0)) delete carrito[id];
+    });
+    guardarCarrito();
     pintarCarrito();
   }
 

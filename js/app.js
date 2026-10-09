@@ -96,10 +96,15 @@
      Totales
      ---------------------------------------------------------------------- */
   function lineas() {
-    return Object.keys(carrito).map((id) => {
-      const p = porId(id);
-      return { producto: p, cantidad: carrito[id], importe: p.precio * carrito[id] };
-    });
+    return Object.keys(carrito)
+      .map((id) => {
+        const p = porId(id);
+        /* Si el producto ya no existe en el catálogo (ej. cambió el
+           id tras una sincronización), lo omitimos sin romper nada. */
+        if (!p) return null;
+        return { producto: p, cantidad: carrito[id], importe: p.precio * carrito[id] };
+      })
+      .filter(Boolean);
   }
 
   /* Config de envío robusta: soporta tanto tienda.envio.{costo,gratisDesde}
@@ -610,17 +615,13 @@
   }
 
   function arrancar() {
-    construirFiltros();
-    construirCatGrid();
-    pintarPromos();
-    pintarCatalogo();
-    /* Limpia ids que ya no existen en el catálogo (ahora sí conocemos el
-       catálogo real, local o remoto) */
-    Object.keys(carrito).forEach((id) => {
-      if (!porId(id) || !(carrito[id] > 0)) delete carrito[id];
-    });
-    guardarCarrito();
+    /* El carrito se pinta primero y siempre: aunque falle cualquier
+       otra sección, la cotización guardada se ve de inmediato. */
     pintarCarrito();
+    try { construirFiltros(); } catch (e) { console.error('filtros', e); }
+    try { construirCatGrid(); } catch (e) { console.error('catGrid', e); }
+    try { pintarPromos(); } catch (e) { console.error('promos', e); }
+    try { pintarCatalogo(); } catch (e) { console.error('catalogo', e); }
   }
 
   (async function () {

@@ -1229,9 +1229,35 @@ body.is-locked { overflow: hidden; }
 }
 
 /* --------------------------------------------------------------------------
-   16. IMPRESIÓN
+   16. IMPRESIÓN / PDF (vista #printView)
    -------------------------------------------------------------------------- */
+#printView { display: none; }
+
 @media print {
-  .header, .topbar, .fab, .cart, .overlay, .cta-band, .catalog__toolbar { display: none !important; }
-  body { color: #000; }
+  /* Imprimir muestra SOLO la cotización (#printView) */
+  body > *:not(#printView) { display: none !important; }
+  body { background: #fff; color: #000; }
+
+  #printView { display: block !important; }
+  .print-sheet { max-width: none; margin: 0; padding: 0; }
+  .print-sheet__head { margin-bottom: 16px; border-bottom: 2px solid #000; padding-bottom: 8px; }
+  .print-sheet__head h1 { margin: 0 0 4px; font-size: 22px; }
+  .print-sheet__head p { margin: 0; font-size: 13px; }
+
+  .print-sheet__table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .print-sheet__table th,
+  .print-sheet__table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #bbb;
+    text-align: left;
+  }
+  .print-sheet__table th { border-bottom: 2px solid #000; font-size: 12px; text-transform: uppercase; }
+  .print-sheet__table th:last-child,
+  .print-sheet__table td:last-child,
+  .print-sheet__table td:nth-child(4) { text-align: right; }
+  .print-sheet__table tfoot td { border-top: 2px solid #000; border-bottom: none; padding-top: 8px; }
+  .print-sheet__total td { font-weight: 700; font-size: 15px; }
+
+  .print-sheet__foot { margin-top: 16px; font-size: 12px; }
+  .print-sheet__foot p { margin: 2px 0; }
 }

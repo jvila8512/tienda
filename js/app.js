@@ -63,7 +63,6 @@
      Estado
      ---------------------------------------------------------------------- */
   const KEY_CART = 'esquinita.pedido';
-  const KEY_DATOS = 'esquinita.datos';
 
   let carrito = store.get(KEY_CART, {});          // { idProducto: cantidad }
   let categoria = 'todos';
@@ -248,10 +247,8 @@
   }
 
   /* ------------------------------------------------------------------------
-     Carrito: estructura fija (para no borrar lo que el cliente escribe)
+     Carrito: estructura fija
      ---------------------------------------------------------------------- */
-  const datosGuardados = store.get(KEY_DATOS, {});
-
   cartBody.innerHTML = `
     <div class="cart__empty" id="cartEmpty">
       <svg class="icon icon--lg" aria-hidden="true"><use href="#i-cart"></use></svg>
@@ -262,51 +259,11 @@
 
     <div id="cartFilled" hidden>
       <ul class="cart-lines" id="cartLines"></ul>
-
-      <form class="cart__form" id="cartForm" novalidate>
-        <h3 class="cart__form-title">Datos para la entrega</h3>
-
-        <div class="field">
-          <label class="field__label" for="fNombre">Tu nombre</label>
-          <input class="input" type="text" id="fNombre" name="nombre" autocomplete="name"
-                 placeholder="Ej. María González" value="${esc(datosGuardados.nombre || '')}">
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="fDireccion">Calle y número</label>
-          <input class="input" type="text" id="fDireccion" name="direccion" autocomplete="street-address"
-                 placeholder="Ej. Morelos 123, int. 4" value="${esc(datosGuardados.direccion || '')}">
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="fReferencia">Referencia <span class="field__hint">(opcional)</span></label>
-          <textarea class="textarea" id="fReferencia" name="referencia"
-                    placeholder="Ej. portón verde, frente a la papelería">${esc(datosGuardados.referencia || '')}</textarea>
-        </div>
-
-        <div class="field">
-          <span class="field__label" id="pagoLabel">¿Cómo vas a pagar?</span>
-          <div class="radio-row" role="radiogroup" aria-labelledby="pagoLabel">
-            <label class="radio-card">
-              <input type="radio" name="pago" value="Efectivo" checked> Efectivo
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="pago" value="Transferencia"> Transferencia
-            </label>
-          </div>
-        </div>
-      </form>
     </div>`;
 
   const cartEmpty = $('#cartEmpty');
   const cartFilled = $('#cartFilled');
   const cartLines = $('#cartLines');
-  const cartForm = $('#cartForm');
-
-  if (datosGuardados.pago) {
-    const r = $(`input[name="pago"][value="${datosGuardados.pago}"]`, cartForm);
-    if (r) r.checked = true;
-  }
 
   function pintarCarrito() {
     const t = totales();
@@ -364,7 +321,7 @@
     guardarCarrito();
     pintarCarrito();
     pintarCatalogo();
-    if (aviso !== false) avisar(`${p.nombre} agregado a tu pedido`);
+    if (aviso !== false) avisar(`${p.nombre} agregado a tu cotización`);
   }
 
   /* Quita un producto completo de la cotización */
@@ -416,26 +373,11 @@
     return 'https://wa.me/' + String(TIENDA.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(texto);
   }
 
-  function datosDelForm() {
-    const valor = (name) => {
-      const el = cartForm.elements[name];
-      return el ? el.value.trim() : '';
-    };
-    const pago = $('input[name="pago"]:checked', cartForm);
-    return {
-      nombre: valor('nombre'),
-      direccion: valor('direccion'),
-      referencia: valor('referencia'),
-      pago: pago ? pago.value : 'Efectivo'
-    };
-  }
-
   function mensajePedido() {
     const t = totales();
-    const d = datosDelForm();
     const L = [];
 
-    L.push('*Pedido — ' + TIENDA.nombre + '*');
+    L.push('*Cotización — ' + TIENDA.nombre + '*');
     L.push('');
 
     t.items.forEach((l, i) => {
@@ -446,12 +388,6 @@
     L.push('Productos: ' + money(t.subtotal));
     L.push('Envío: ' + (t.gratis ? 'gratis' : money(t.envio)));
     L.push('*Total: ' + money(t.total) + '*');
-    L.push('');
-    L.push('*Datos de entrega*');
-    L.push('Nombre: ' + d.nombre);
-    L.push('Dirección: ' + d.direccion);
-    if (d.referencia) L.push('Referencia: ' + d.referencia);
-    L.push('Pago: ' + d.pago);
 
     return L.join('\n');
   }
@@ -459,21 +395,51 @@
   function enviarPedido() {
     const t = totales();
     if (!t.piezas) { avisar('Agrega productos antes de enviar tu cotización'); return; }
-
-    const d = datosDelForm();
-    if (!d.nombre) {
-      avisar('Escribe tu nombre para poder entregarte');
-      $('#fNombre').focus();
-      return;
-    }
-    if (!d.direccion) {
-      avisar('Necesitamos tu calle y número');
-      $('#fDireccion').focus();
-      return;
-    }
-
-    store.set(KEY_DATOS, d);
     window.open(enlaceWA(mensajePedido()), '_blank', 'noopener');
+  }
+
+  /* ------------------------------------------------------------------------
+     Exportar cotización a PDF (vista de impresión → "Guardar como PDF")
+     ---------------------------------------------------------------------- */
+  const printView = $('#printView');
+
+  function exportarPDF() {
+    const t = totales();
+    if (!t.piezas) { avisar('Agrega productos antes de exportar tu cotización'); return; }
+
+    const hoy = new Date().toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'numeric' });
+    printView.innerHTML = `
+      <div class="print-sheet">
+        <header class="print-sheet__head">
+          <h1>${esc(TIENDA.nombre)}</h1>
+          <p>Cotización · ${hoy}</p>
+        </header>
+        <table class="print-sheet__table">
+          <thead>
+            <tr><th>#</th><th>Producto</th><th>Cant.</th><th>P. unitario</th><th>Importe</th></tr>
+          </thead>
+          <tbody>
+            ${t.items.map((l, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${esc(l.producto.nombre)}${l.producto.unidad ? ` <small>(${esc(l.producto.unidad)})</small>` : ''}</td>
+              <td>${l.cantidad}</td>
+              <td>${money(l.producto.precio)}</td>
+              <td>${money(l.importe)}</td>
+            </tr>`).join('')}
+          </tbody>
+          <tfoot>
+            <tr><td colspan="4">Productos</td><td>${money(t.subtotal)}</td></tr>
+            <tr><td colspan="4">Envío a domicilio</td><td>${t.gratis ? 'Gratis' : money(t.envio)}</td></tr>
+            <tr class="print-sheet__total"><td colspan="4">Total</td><td>${money(t.total)}</td></tr>
+          </tfoot>
+        </table>
+        <footer class="print-sheet__foot">
+          <p>Cotización estimada. Precios y disponibilidad sujetos a confirmación.</p>
+          ${TIENDA.whatsapp ? `<p>WhatsApp: ${esc(String(TIENDA.whatsapp))}</p>` : ''}
+        </footer>
+      </div>`;
+    window.print();
   }
 
   /* ------------------------------------------------------------------------
@@ -486,9 +452,7 @@
     if (wa) {
       ev.preventDefault();
       const t = totales();
-      const d = t.piezas ? datosDelForm() : null;
-      const texto = (t.piezas && d && d.nombre && d.direccion) ? mensajePedido() : TIENDA.saludo;
-      window.open(enlaceWA(texto), '_blank', 'noopener');
+      window.open(enlaceWA(t.piezas ? mensajePedido() : TIENDA.saludo), '_blank', 'noopener');
       return;
     }
 
@@ -569,7 +533,7 @@
   $('#cartClose').addEventListener('click', cerrarCarrito);
   overlay.addEventListener('click', cerrarCarrito);
   $('#sendOrder').addEventListener('click', enviarPedido);
-  cartForm.addEventListener('submit', (ev) => { ev.preventDefault(); enviarPedido(); });
+  $('#exportPdf').addEventListener('click', exportarPDF);
 
   document.addEventListener('keydown', (ev) => {
     if (ev.key !== 'Escape') return;

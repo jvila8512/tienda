@@ -169,6 +169,9 @@
   <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4.6 12h14"/><path d="M13.4 6.8l5.2 5.2-5.2 5.2"/>
   </symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 4v11"/><path d="M7.2 10.6L12 15.4l4.8-4.8"/><path d="M4.6 19.4h14.8"/>
+  </symbol>
 
   <!-- Iconos por producto -->
   <symbol id="i-can" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -695,6 +698,10 @@
       <svg class="icon icon--sm" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
       Enviar cotización por WhatsApp
     </button>
+    <button class="btn btn--ghost btn--block" type="button" id="exportPdf">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="#i-download"></use></svg>
+      Descargar cotización en PDF
+    </button>
     <p class="cart__hint">Esta pre-factura es una cotización estimada de los productos seleccionados. Al enviar tu mensaje por WhatsApp, confirmaremos disponibilidad de stock y datos de facturación/pago.</p>
   </div>
 </aside>
@@ -711,7 +718,10 @@
   <span id="toastText"></span>
 </div>
 
+<!-- Vista de impresión (PDF): oculta en pantalla, visible solo al imprimir -->
+<div id="printView" aria-hidden="true"></div>
+
 <script src="js/products.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>

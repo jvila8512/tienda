@@ -700,8 +700,22 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .product-grid {
   display: grid;
-  gap: var(--space-5);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: var(--space-4);
+  /* Celular: 2 productos por fila */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .product-grid {
+    gap: var(--space-5);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  }
+}
+
+/* Tarjetas más compactas cuando van de a 2 por fila (celular) */
+@media (max-width: 639px) {
+  .product { padding: var(--space-3); }
+  .product__thumb .icon--lg { width: 44px; height: 44px; }
 }
 
 .product {

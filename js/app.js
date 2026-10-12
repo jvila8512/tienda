@@ -75,7 +75,6 @@
      Referencias del DOM
      ---------------------------------------------------------------------- */
   const productGrid = $('#productGrid');
-  const promoGrid = $('#promoGrid');
   const resultCount = $('#resultCount');
   const filtros = $('#filtros');
   const catGrid = $('#catGrid');
@@ -139,41 +138,6 @@
   }
 
   /* ------------------------------------------------------------------------
-     Ofertas de la semana (productos con precio "antes")
-     ---------------------------------------------------------------------- */
-  function pintarPromos() {
-    const promos = PRODUCTOS.filter((p) => p.antes && p.antes > p.precio).slice(0, 4);
-
-    if (!promos.length) {
-      promoGrid.closest('section').hidden = true;
-      return;
-    }
-
-    promoGrid.innerHTML = promos.map((p) => {
-      const pct = Math.round((1 - p.precio / p.antes) * 100);
-      return `
-        <article class="promo-card">
-          <span class="promo-card__tag">-${pct}%</span>
-          <span class="promo-card__icon" aria-hidden="true">
-            ${mediaDe(p)}
-          </span>
-          <div>
-            <h3 class="promo-card__name">${esc(p.nombre)}</h3>
-            <span class="promo-card__unit">${esc(p.unidad)}</span>
-          </div>
-          <p class="promo-card__prices">
-            <span class="promo-card__now">${money(p.precio)}</span>
-            <span class="promo-card__was">${money(p.antes)}</span>
-          </p>
-           <button class="btn btn--accent btn--sm" type="button" data-add="${p.id}" ${agotadoDe(p) ? 'disabled aria-disabled="true"' : ''}>
-            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"></use></svg>
-            Agregar a mi cotización
-          </button>
-        </article>`;
-    }).join('');
-  }
-
-  /* ------------------------------------------------------------------------
      Catálogo
      ---------------------------------------------------------------------- */
   function filtrados() {
@@ -197,6 +161,14 @@
 
   function pintarCatalogo() {
     const lista = filtrados();
+    /* Orden: primero con stock, después agotados; dentro de cada grupo,
+       orden alfabético (A-Z). */
+    lista.sort((a, b) => {
+      const sa = agotadoDe(a) ? 1 : 0;
+      const sb = agotadoDe(b) ? 1 : 0;
+      if (sa !== sb) return sa - sb;
+      return String(a.nombre || '').localeCompare(String(b.nombre || ''), 'es');
+    });
 
     if (!lista.length) {
       productGrid.innerHTML = `
@@ -595,7 +567,6 @@
     pintarCarrito();
     try { construirFiltros(); } catch (e) { console.error('filtros', e); }
     try { construirCatGrid(); } catch (e) { console.error('catGrid', e); }
-    try { pintarPromos(); } catch (e) { console.error('promos', e); }
     try { pintarCatalogo(); } catch (e) { console.error('catalogo', e); }
   }
 

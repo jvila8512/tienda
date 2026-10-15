@@ -231,6 +231,10 @@
 
     <div id="cartFilled" hidden>
       <ul class="cart-lines" id="cartLines"></ul>
+      <div class="cart-breakdown">
+        <div class="sum-row"><span>Productos</span><span id="sumItems">$0</span></div>
+        <div class="sum-row"><span>Envío a domicilio</span><span id="sumShip">$0</span></div>
+      </div>
     </div>`;
 
   const cartEmpty = $('#cartEmpty');

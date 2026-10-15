@@ -8,7 +8,7 @@
       "costo": 100.0,
       "gratisDesde": 185.0
     },
-    "moneda": "$$"
+    "moneda": "cup"
   },
   "categorias": {
     "2f297782-54f5-40fd-b24e-e6becb2f1013": {
@@ -56,7 +56,7 @@
     {
       "id": "f1ae31ea-8edd-4dd7-8501-b4d5c1e1d650",
       "nombre": "CERVEZA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "4950f2b7-f88c-4ab6-ab32-e60e880536a0",
@@ -66,12 +66,18 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": [
+        {
+          "desde": 24.0,
+          "precio": 480.0
+        }
+      ]
     },
     {
       "id": "3d728652-9930-4437-92ec-0185181b29f1",
       "nombre": "RON",
-      "unidad": null,
+      "unidad": "U",
       "precio": 3200.0,
       "antes": null,
       "cat": "4950f2b7-f88c-4ab6-ab32-e60e880536a0",
@@ -81,12 +87,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "7a8ccf36-8f6f-4cf9-945d-68edbff598d0",
       "nombre": "VODKA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1800.0,
       "antes": null,
       "cat": "4950f2b7-f88c-4ab6-ab32-e60e880536a0",
@@ -96,12 +103,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "2dd64943-5ffc-48cf-a287-0651888c6da2",
       "nombre": "GELATINA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 250.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -111,12 +119,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "43f91a84-30fd-449d-b51b-8099494619af",
       "nombre": "PONQUESITO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 180.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -126,12 +135,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "fe6e6d2e-f489-47cf-94c8-1263b617fe1c",
       "nombre": "SORBETICOS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -141,12 +151,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "5a461e89-6488-4645-82fa-e447a6dece24",
       "nombre": "CHUPA CHUPA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 80.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -156,12 +167,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "34e6ddb2-9498-4f50-871c-2799105631e0",
       "nombre": "CARAMELO LECHE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 30.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -171,12 +183,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "df623f76-705f-481b-a239-062b1af8cf1b",
       "nombre": "CARAMELOS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 20.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -186,12 +199,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "270e6617-5788-424c-b20d-2121f80f0bd0",
       "nombre": "CARAMELOS 2",
-      "unidad": null,
+      "unidad": "U",
       "precio": 15.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -201,12 +215,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "edc7c428-526c-4c43-867a-ecdeb6bafd75",
       "nombre": "PASTOREA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 200.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -216,12 +231,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "5bc494e4-89bc-492e-a3ca-f16facf2040f",
       "nombre": "GELATINA 2",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -231,12 +247,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "a32ec178-6a1f-471d-b0eb-03c577df790a",
       "nombre": "MAMBELINA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 130.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -246,12 +263,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "4b07b8e9-8972-4bef-a8b0-6b05185356bc",
       "nombre": "GOMINOLA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 200.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -261,12 +279,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "6d4773a1-039a-424d-b6fc-6c018954c23c",
       "nombre": "MONEDA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 50.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -276,12 +295,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "53e1b955-4dbb-4447-8561-fdb77978ab02",
       "nombre": "PETER",
-      "unidad": null,
+      "unidad": "U",
       "precio": 50.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -291,12 +311,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "9b644b35-7f9a-4683-b2bc-b54bcf102803",
       "nombre": "OJITOS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 60.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -306,12 +327,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "fe779ec5-8576-426e-8971-52434a0235e3",
       "nombre": "BOMBON",
-      "unidad": null,
+      "unidad": "U",
       "precio": 70.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -321,12 +343,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "6c3d3d3f-a527-4598-88bf-5db7e0f99a30",
       "nombre": "TABLETOS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 130.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -336,12 +359,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "d6baade9-edfb-4a7f-8b38-c76748d246cd",
       "nombre": "CHICLE GRANDE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 70.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -351,12 +375,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "5abc9a0b-4fb5-4fed-9a60-e130cc9242c3",
       "nombre": "CHICLE CHICO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 50.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -366,12 +391,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "7f0ab702-41e8-4cf7-bd53-497cdaad697c",
       "nombre": "PAPA NUTELA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 150.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -381,12 +407,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "503aa5ca-6aa9-41a5-9ca5-5e764b56a4ca",
       "nombre": "MARRANETA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 350.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -396,12 +423,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "43107061-05da-4865-adf9-1ffdb66e7359",
       "nombre": "BOTONETAS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "bfefcc65-1f78-4484-9f83-de4336a8f7f4",
@@ -411,12 +439,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "1bf77efb-7854-4ecc-b5e3-951dad5aadc4",
       "nombre": "GALLETA SODA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 300.0,
       "antes": null,
       "cat": "6e2f667b-d0df-49b1-b40a-58ad970fe0ae",
@@ -426,13 +455,14 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "2d1a6088-e21b-40d4-ba8a-61e0ae656c95",
       "nombre": "BISCUIT",
-      "unidad": null,
-      "precio": 300.0,
+      "unidad": "U",
+      "precio": 307.14,
       "antes": null,
       "cat": "6e2f667b-d0df-49b1-b40a-58ad970fe0ae",
       "foto": null,
@@ -441,12 +471,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "f5e3947d-2331-4973-a5e4-72faddb7fec1",
       "nombre": "GALLETICA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 200.0,
       "antes": null,
       "cat": "6e2f667b-d0df-49b1-b40a-58ad970fe0ae",
@@ -456,12 +487,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "bed774a0-7100-4eac-acca-cd30d0b2ce7b",
       "nombre": "GALLETICOS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 150.0,
       "antes": null,
       "cat": "6e2f667b-d0df-49b1-b40a-58ad970fe0ae",
@@ -471,12 +503,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "3464362a-c27f-4198-ab1d-1c7ad9530a21",
       "nombre": "GALLETICOS 2",
-      "unidad": null,
+      "unidad": "U",
       "precio": 130.0,
       "antes": null,
       "cat": "6e2f667b-d0df-49b1-b40a-58ad970fe0ae",
@@ -486,27 +519,29 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "f689c8e2-ff21-4a91-9176-ea55be6b9de9",
       "nombre": "AZUCAR",
-      "unidad": null,
-      "precio": 450.0,
-      "antes": null,
+      "unidad": "U",
+      "precio": 598.0,
+      "antes": 660.0,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
       "foto": null,
-      "stock": 0.0,
+      "stock": 1.0,
       "stockMin": 5,
       "nuevo": false,
-      "agotado": true,
-      "enPromocion": false,
-      "icono": null
+      "agotado": false,
+      "enPromocion": true,
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "e24225e6-5be6-4533-9e30-50a92ab42e29",
       "nombre": "PURE GRANDE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 700.0,
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
@@ -516,12 +551,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "0229218c-be84-434c-8a96-4bf217514148",
       "nombre": "PURE CHICO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
@@ -531,12 +567,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "dcd0619c-1da4-4322-ba7d-5a4b4d284936",
       "nombre": "JALEA GUAYABA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
@@ -546,12 +583,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "3d8bc749-252d-4e24-bcae-d59f92206a8d",
       "nombre": "VINAGRE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
@@ -561,7 +599,8 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "28c3950b-d547-4068-ba36-25f889e938cc",
@@ -571,12 +610,18 @@
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
       "foto": null,
-      "stock": 82.0,
+      "stock": 74.0,
       "stockMin": 5,
       "nuevo": false,
       "agotado": false,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": [
+        {
+          "desde": 5.0,
+          "precio": 750.5
+        }
+      ]
     },
     {
       "id": "917f1038-d01d-4a54-86ef-0f1f135a263a",
@@ -591,12 +636,13 @@
       "nuevo": false,
       "agotado": false,
       "enPromocion": true,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "1d5c51c8-5b8b-442f-89d4-2db365dd2cb6",
       "nombre": "SOPITA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 250.0,
       "antes": null,
       "cat": "2f297782-54f5-40fd-b24e-e6becb2f1013",
@@ -606,13 +652,14 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "7e147b21-be9c-483d-b675-6424876609cb",
       "nombre": "BOLSO",
-      "unidad": null,
-      "precio": 150.0,
+      "unidad": "U",
+      "precio": 180.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
       "foto": null,
@@ -621,12 +668,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "fae65315-8024-438a-a01f-b10197cec98c",
       "nombre": "JABITAS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 15.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -636,12 +684,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "b58ca712-09a1-478f-828f-41ac43983e26",
       "nombre": "PIÑATA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1200.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -651,12 +700,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "ffbea2f1-df44-42fc-80bb-7da374e59247",
       "nombre": "HUTA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -666,12 +716,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "0c7b2a62-2630-40f9-b07f-67334e1a5aa4",
       "nombre": "PINSOLLE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -681,12 +732,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "4dcef958-8115-49c2-9522-2848e7bd998c",
       "nombre": "LLONDEO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -696,12 +748,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "958f432a-dd15-4c02-b006-048b1686b2b0",
       "nombre": "LAMPARA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1500.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -711,12 +764,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "cadc571c-1dbf-46d3-8a23-a8cc9a347023",
       "nombre": "VELAS GRANDES",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -726,12 +780,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "f708a9b1-31de-48bf-bddd-c62ee3546353",
       "nombre": "VELAS CHICAS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 80.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -741,12 +796,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "481b42c7-0230-4a90-869a-026839553ced",
       "nombre": "CIGARRO ENGLISHMAN",
-      "unidad": null,
+      "unidad": "U",
       "precio": 50.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -756,12 +812,18 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": [
+        {
+          "desde": 20.0,
+          "precio": 42.5
+        }
+      ]
     },
     {
       "id": "6d8acf52-0ba2-4c89-83fb-2545f62619f6",
       "nombre": "CIGARRO KING",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -771,12 +833,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "9b8ad447-86d3-496b-9212-f8467c1c25e3",
       "nombre": "VOSS",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -786,12 +849,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "7a72cb44-6b6e-453f-a776-dfd613311e07",
       "nombre": "POPULAR ROJO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 1000.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -801,12 +865,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "2990b5a1-1755-4903-8efe-5476f125093a",
       "nombre": "SANDRA MENTI",
-      "unidad": null,
+      "unidad": "U",
       "precio": 900.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -816,12 +881,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "bd4d4208-9bff-4674-a310-721bf59063b7",
       "nombre": "P. AZUL",
-      "unidad": null,
+      "unidad": "U",
       "precio": 800.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -831,12 +897,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "9597c395-b25b-4b03-a5f6-acecaf86ba43",
       "nombre": "CRIOLLO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 800.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -846,12 +913,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "f9e696da-7c3e-40f9-9993-e0ba206f11bd",
       "nombre": "TABACO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 80.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -861,12 +929,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "49eaa10f-2766-4dcd-bd7b-f575901c5228",
       "nombre": "SPATTY",
-      "unidad": null,
+      "unidad": "U",
       "precio": 400.0,
       "antes": null,
       "cat": "e94b2c79-0a94-43cb-918d-9c42dd778aed",
@@ -876,12 +945,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "4185fb80-a18f-4d6d-bc77-3ba9a4252b54",
       "nombre": "MALTA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 600.0,
       "antes": null,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
@@ -891,12 +961,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "f1ef241d-b88b-4312-a1ff-d1a0db1e724e",
       "nombre": "JUGO RAYAN",
-      "unidad": null,
+      "unidad": "U",
       "precio": 250.0,
       "antes": null,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
@@ -906,12 +977,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "28817378-4f68-40d6-9a89-ef113201b2fa",
       "nombre": "JUGO COCTEL",
-      "unidad": null,
+      "unidad": "U",
       "precio": 150.0,
       "antes": null,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
@@ -921,12 +993,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "8e1cf2e5-cb7e-46b5-a06e-f14392f36434",
       "nombre": "JUGO NECTAR",
-      "unidad": null,
+      "unidad": "U",
       "precio": 600.0,
       "antes": null,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
@@ -936,12 +1009,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "ee7d39ac-477a-41f1-8ae8-f2a96a330bde",
       "nombre": "SHIKA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 600.0,
       "antes": null,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
@@ -951,27 +1025,34 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "cd33d218-c5d8-416f-93db-77a56088630f",
       "nombre": "AGUA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 350.0,
-      "antes": null,
+      "antes": 440.0,
       "cat": "cba106ac-3037-4063-8ee9-a2d5c6f6aa41",
       "foto": "assets/productos/cd33d218-c5d8-416f-93db-77a56088630f.jpg",
       "stock": 140.0,
       "stockMin": 5,
       "nuevo": false,
       "agotado": false,
-      "enPromocion": false,
-      "icono": null
+      "enPromocion": true,
+      "icono": null,
+      "mayor": [
+        {
+          "desde": 10.0,
+          "precio": 320.0
+        }
+      ]
     },
     {
       "id": "85980b0c-7ea0-4081-8458-89ae57e71092",
       "nombre": "DETERGENTE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 600.0,
       "antes": null,
       "cat": "85c75e88-ca46-49b0-9d37-406f6ba42711",
@@ -981,12 +1062,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "439f6d39-3e21-437c-9d4f-4162ecd8c980",
       "nombre": "DETERGENTE GRANDE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 850.0,
       "antes": null,
       "cat": "85c75e88-ca46-49b0-9d37-406f6ba42711",
@@ -996,12 +1078,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "6b4e38cc-096d-4a58-8787-b642770e0811",
       "nombre": "DETERGENTE CHICO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 260.0,
       "antes": null,
       "cat": "85c75e88-ca46-49b0-9d37-406f6ba42711",
@@ -1011,12 +1094,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "758fc7a4-8460-42a5-b733-df7d43f07c8f",
       "nombre": "ESTROPAJO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "85c75e88-ca46-49b0-9d37-406f6ba42711",
@@ -1026,12 +1110,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "db707a22-6125-4892-9379-efc2e21016fe",
       "nombre": "LECHE CONDENSADA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 800.0,
       "antes": null,
       "cat": "6ddf7fe1-ab94-47f0-9415-2384c0e7c5c3",
@@ -1041,12 +1126,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "1be655d6-29b0-4b21-934f-b1467b7621bf",
       "nombre": "PASTA DANT",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1056,12 +1142,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "1efdc398-a80a-47b7-86c2-99f4e82e551e",
       "nombre": "PASTA DENT 2",
-      "unidad": null,
+      "unidad": "U",
       "precio": 400.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1071,12 +1158,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "238bf231-0f88-4478-bb45-feba12be5f00",
       "nombre": "JABON LAVAR",
-      "unidad": null,
+      "unidad": "U",
       "precio": 400.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1086,12 +1174,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "a7825491-3bd6-4cce-a622-0b3ec42c346c",
       "nombre": "JABON BANO GRANDE",
-      "unidad": null,
+      "unidad": "U",
       "precio": 350.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1101,12 +1190,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "8b7c2df7-cf7a-4380-9a00-9fd236372071",
       "nombre": "JABON BANO CHICO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 250.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1116,12 +1206,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "4424428e-a8c6-4c15-8a2b-a16fd8e95fa6",
       "nombre": "COLETA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 400.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1131,12 +1222,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "6c7f693c-f673-4e42-986e-de16cca484e1",
       "nombre": "INTIMA",
-      "unidad": null,
+      "unidad": "U",
       "precio": 500.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1146,12 +1238,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "8688089b-f20b-49f3-a5e1-b97c3d4dd472",
       "nombre": "MAQ. AFEITAR",
-      "unidad": null,
+      "unidad": "U",
       "precio": 120.0,
       "antes": null,
       "cat": "385ddadc-af3a-4ec5-8e55-d68a7f1b376d",
@@ -1161,12 +1254,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "830e29d7-405d-462e-b216-daac895cf6d7",
       "nombre": "COMINO",
-      "unidad": null,
+      "unidad": "U",
       "precio": 80.0,
       "antes": null,
       "cat": "53b08192-60c4-4efa-b290-41f378f7a14b",
@@ -1176,12 +1270,13 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     },
     {
       "id": "fce86231-7820-4af7-b1ce-0232f532f783",
       "nombre": "SAZON",
-      "unidad": null,
+      "unidad": "U",
       "precio": 60.0,
       "antes": null,
       "cat": "53b08192-60c4-4efa-b290-41f378f7a14b",
@@ -1191,22 +1286,8 @@
       "nuevo": false,
       "agotado": true,
       "enPromocion": false,
-      "icono": null
-    },
-    {
-      "id": "1788810600231",
-      "nombre": "Vlady",
-      "unidad": null,
-      "precio": 30.0,
-      "antes": null,
-      "cat": null,
-      "foto": null,
-      "stock": 9.0,
-      "stockMin": 5,
-      "nuevo": false,
-      "agotado": false,
-      "enPromocion": false,
-      "icono": null
+      "icono": null,
+      "mayor": []
     }
   ]
 }

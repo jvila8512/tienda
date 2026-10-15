@@ -224,8 +224,6 @@
   cartBody.innerHTML = `
     <div class="cart__empty" id="cartEmpty">
       <svg class="icon icon--lg" aria-hidden="true"><use href="#i-cart"></use></svg>
-      <p><strong>Tu cotización está vacía</strong></p>
-      <p>Agrega productos del catálogo y aquí los vas viendo.</p>
       <a class="btn btn--primary btn--sm" href="#catalogo" data-close-cart>Ir al catálogo</a>
     </div>
 
